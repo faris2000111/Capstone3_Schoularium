@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/dashboard', [DashboardController::class, 'index'], function() {
+    return view('backend.dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/', function () {
     return view('welcome');
