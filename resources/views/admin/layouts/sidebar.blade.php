@@ -47,6 +47,13 @@
     </a>
   </li><!-- End Profile Page Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="logout" onclick="return confirm('Apakah anda yakin ingin keluar?')">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Keluar</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+
 </ul>
 
 </aside><!-- End Sidebar-->
