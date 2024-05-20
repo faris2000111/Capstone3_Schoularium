@@ -48,9 +48,12 @@
  <!-- End Sidebar-->
 
 
-@yield('content')
+  
 
-@yield('content2')
+  
+
+    @yield('content')
+
     
  <!-- ======= Footer ======= -->
  @include('admin/layouts.footer')
