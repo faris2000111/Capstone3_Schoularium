@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class GuruController extends Controller
+class AdminController extends Controller
 {
     public function index()
     {

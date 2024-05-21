@@ -1,6 +1,6 @@
 @extends('admin.layouts.template')
 
-@section('title', 'Daftar - Guru - Schoularium')
+@section('title', 'Daftar Guru - Schoularium')
 
 @section('content')
 
