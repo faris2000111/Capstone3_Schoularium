@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreAdminRequest;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -23,12 +22,19 @@ class GuruController extends Controller
     }
 
     // Menyimpan data admin
-    public function store(StoreAdminRequest $request)
+    public function store(Request $request)
     {
-        // Upload foto jika ada
-        $fotoPath = null;
+        // Validasi form
+        $request->validate([
+            // Aturan validasi lainnya...
+            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Contoh: Hanya menerima file gambar dengan maksimal ukuran 2MB
+        ]);
+
+        // Proses penyimpanan foto ke penyimpanan
         if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('fotos', 'public');
+            $foto = $request->file('foto')->getClientOriginalName();
+            $tujuan_upload = 'foto/guru'; // tanpa "public"
+            $request->file('foto')->storeAs($tujuan_upload, $foto, 'public'); // Simpan di storage/app/public/guru/foto
         }
 
         // Membuat data admin
@@ -42,16 +48,16 @@ class GuruController extends Controller
             'password' => Hash::make($request->password),
             'mata_pelajaran' => $request->mata_pelajaran,
             'tingkat_pendidikan' => $request->tingkat_pendidikan,
-            'foto' => $fotoPath,
+            'foto' => $foto,
             'jabatan' => $request->jabatan,
             'remember_token' => Str::random(60),
         ]);
 
         return redirect()->route('daftar-guru.index')->with('success', 'Admin created successfully.');
     }
-    public function edit($id_guru)
+    public function edit($id_admin)
     {
-        $admin = Admin::findOrFail($id_guru);
+        $admin = Admin::findOrFail($id_admin);
         return view('admin/daftarguru.edit', compact('admin'));
     }
 
@@ -73,12 +79,25 @@ class GuruController extends Controller
         $admin->mata_pelajaran = $request->input('mata_pelajaran');
         $admin->tingkat_pendidikan = $request->input('tingkat_pendidikan');
 
-        // Mengelola upload foto
+        // Validasi form
+        $request->validate([
+            // Aturan validasi lainnya...
+            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Contoh: Hanya menerima file gambar dengan maksimal ukuran 2MB
+        ]);
+
+        $admin = Admin::findOrFail($id);
+
+        // Proses penyimpanan foto ke penyimpanan
         if ($request->hasFile('foto')) {
-            $foto = $request->file('foto');
-            $fotoName = $foto->getClientOriginalName();
-            $foto->move(public_path('uploads/admins'), $fotoName);
-            $admin->foto = $fotoName;
+            // Hapus foto lama jika ada
+            if ($admin->foto) {
+                Storage::disk('public')->delete('foto/guru/' . $admin->foto);
+            }
+    
+            $foto = $request->file('foto')->getClientOriginalName();
+            $tujuan_upload = 'foto/guru'; // tanpa "public"
+            $request->file('foto')->storeAs($tujuan_upload, $foto, 'public'); // Simpan di storage/app/public/guru/foto
+            $admin->foto = $foto;
         }
 
         $admin->jabatan = $request->input('jabatan');
@@ -89,9 +108,16 @@ class GuruController extends Controller
 
         return redirect()->route('daftar-guru.index')->with('success', 'Admin updated successfully.');
     }
-    public function destroy($id_guru)
+    public function destroy($id)
     {
-        $admin = Admin::findOrFail($id_guru);
+        $admin = Admin::findOrFail($id);
+
+        // Hapus foto dari penyimpanan jika ada
+        if ($admin->foto) {
+            Storage::delete($admin->foto);
+        }
+
+        // Hapus data admin dari database
         $admin->delete();
 
         return redirect()->route('daftar-guru.index')->with('success', 'Admin deleted successfully.');

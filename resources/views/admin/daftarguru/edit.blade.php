@@ -24,7 +24,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form action="{{ route('daftar-guru.update', $admin->id_guru) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('daftar-guru.update', $admin->id_admin) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -81,9 +81,12 @@
                                 <input type="file" class="form-control" id="foto" name="foto">
                             </div>
 
-                            <div class="mb-3">
+                            <div class="col-12">
                                 <label for="jabatan" class="form-label">Jabatan</label>
-                                <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ $admin->jabatan }}">
+                                <select class="form-control" id="jabatan" name="jabatan" required>
+                                <option value="Guru" {{ $admin->jabatan == 'Guru' ? 'selected' : '' }}>Guru</option>
+                                    <option value="Staff" {{ $admin->jabatan == 'Staff' ? 'selected' : '' }}>Staff</option>
+                                </select>
                             </div>
 
                             <!-- Tambahkan field lainnya sesuai kebutuhan -->

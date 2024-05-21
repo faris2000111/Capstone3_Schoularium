@@ -23,10 +23,7 @@
 
                     <div class="card-body">
 
-                        <div class="pt-4 pb-2">
-                            <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                            <p class="text-center small">Enter your personal details to create account</p>
-                        </div>
+                        
 
                         <form class="row g-3 needs-validation" action="{{ route('daftar-guru.store') }}" method="POST" enctype="multipart/form-data" novalidate>
                             @csrf
@@ -101,8 +98,11 @@
 
                             <div class="col-12">
                                 <label for="jabatan" class="form-label">Jabatan</label>
-                                <input type="text" name="jabatan" class="form-control" id="jabatan" required>
-                                <div class="invalid-feedback">Please, enter your position!</div>
+                                <select class="form-control" id="jabatan" name="jabatan" required>
+                                    <option value="Guru">Guru</option>
+                                    <option value="Staff">Staff</option>
+                                </select>
+                                <div class="invalid-feedback">Please, select your Jabatan!</div>
                             </div>
 
                             <div class="col-12">

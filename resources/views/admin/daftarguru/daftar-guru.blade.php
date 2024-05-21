@@ -29,37 +29,33 @@
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
-                  <tr>
-                    <th>Name</th>
+                  <tr style="text-align: center;">
+                    <th>Nama</th>
                     <th>NIP</th>
-                    <th>Umur</th>
+                    <th>Foto</th>
                     <th>Jenis Kelamin</th>
-                    <th>No Telp</th>
+                    <th>No Hp</th>
                     <th>Email</th>
                     <th>Mata Pelajaran</th>
-                    <th>Tingkat Pendidikan</th>
                     <th>Jabatan</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach($admins as $admin)
-                  <tr>
+                  <tr style="text-align: center;">
                     <td>{{ $admin->nama }}</td>
                     <td>{{ $admin->nip }}</td>
-                    <td>{{ $admin->umur }}</td>
+                    <td><img src="{{ Storage::url('foto/guru/' . $admin->foto) }}" width="50" height="50"></td>
                     <td>{{ $admin->jenis_kelamin }}</td>
                     <td>{{ $admin->no_telp }}</td>
                     <td>{{ $admin->email }}</td>
                     <td>{{ $admin->mata_pelajaran }}</td>
-                    <td>{{ $admin->tingkat_pendidikan }}</td>
                     <td>{{ $admin->jabatan }}</td>
                     <td>
-                        <!-- Tambahkan tombol aksi di sini, misalnya Edit dan Delete -->
-                        <a href="{{ route('daftar-guru.edit', $admin->id_guru) }}" class="btn btn-sm btn-primary">Edit</a>
-                        <!-- Tambahkan tombol Delete jika diperlukan -->
+                        <a href="{{ route('daftar-guru.edit', $admin->id_admin) }}" class="btn btn-sm btn-primary">Edit</a>
                         <td>
-                          <form action="{{ route('daftar-guru.destroy', $admin->id_guru) }}" method="POST">
+                          <form action="{{ route('daftar-guru.destroy', $admin->id_admin) }}" method="POST">
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
