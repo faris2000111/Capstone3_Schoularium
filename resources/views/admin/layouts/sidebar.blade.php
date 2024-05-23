@@ -31,12 +31,27 @@
         </a>
       </li>
       <li>
-        <a href="forms-validation.html">
-          <i class="bi bi-circle"></i><span>DLL</span>
+        <a href="forms-layouts.html">
+          <i class="bi bi-circle"></i><span>tambah daftar guru</span>
         </a>
       </li>
+      
     </ul>
-  </li><!-- End Forms Nav -->
+  </li><!-- End Forms guru Nav -->
+
+  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-siswaCrud-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Data Siswa</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-siswaCrud-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          
+          <li>
+            <a href="/siswa">
+              <i class="bi bi-circle"></i><span>Data Siswa</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Forms Nav -->
 
   <li class="nav-heading">Pages</li>
 
