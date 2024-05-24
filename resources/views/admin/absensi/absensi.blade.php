@@ -37,7 +37,7 @@
         
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="fa-sharp fa-solid fa-xmark"></i>
+                              <i class="bi bi-card-checklist"></i>
                             </div>
                             <div class="ps-3">
                                 <h6>{{$user->name}}</h6>
