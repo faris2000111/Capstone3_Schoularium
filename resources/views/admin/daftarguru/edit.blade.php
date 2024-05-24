@@ -46,7 +46,7 @@
 
                             <div class="mb-3">
                                 <label for="nip" class="form-label">NIP</label>
-                                <input type="text" class="form-control" id="nip" name="nip" value="{{ $admin->nip }}" required>
+                                <input type="text" class="form-control" id="nip" name="nip" value="{{ $admin->nip }}">
                             </div>
 
                             <div class="mb-3">
