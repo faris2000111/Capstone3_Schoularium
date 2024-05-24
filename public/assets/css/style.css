@@ -730,6 +730,10 @@ h6 {
   list-style: none;
 }
 
+.nav-content.show {
+  display: block; /* Pastikan dropdown yang aktif tetap terbuka */
+}
+
 .sidebar-nav .nav-content a {
   display: flex;
   align-items: center;
