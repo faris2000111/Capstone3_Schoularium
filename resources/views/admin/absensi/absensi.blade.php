@@ -29,8 +29,8 @@
                                 <i class="fa-sharp fa-solid fa-xmark"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>*</h6>
-                            <span class="text-muted small pt-2 ps-1"></span>
+                                <h6>{{$user->name}}</h6>
+                            <span class="text-muted small pt-2 ps-1">Silahkan untuk absensi terlebih dahulu </span>
         
                             </div>
                         </div>

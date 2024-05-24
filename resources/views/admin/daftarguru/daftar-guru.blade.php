@@ -35,32 +35,27 @@
                     <th>Foto</th>
                     <th>Jenis Kelamin</th>
                     <th>No Hp</th>
-                    <th>Email</th>
-                    <th>Mata Pelajaran</th>
                     <th>Jabatan</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach($admins as $admin)
-                  <tr style="text-align: center;">
+                  <tr >
                     <td>{{ $admin->nama }}</td>
                     <td>{{ $admin->nip }}</td>
                     <td><img src="{{ Storage::url('foto/guru/' . $admin->foto) }}" width="50" height="50"></td>
                     <td>{{ $admin->jenis_kelamin }}</td>
                     <td>{{ $admin->no_telp }}</td>
-                    <td>{{ $admin->email }}</td>
-                    <td>{{ $admin->mata_pelajaran }}</td>
                     <td>{{ $admin->jabatan }}</td>
                     <td>
-                        <a href="{{ route('daftar-guru.edit', $admin->id_admin) }}" class="btn btn-sm btn-primary">Edit</a>
-                        <td>
-                          <form action="{{ route('daftar-guru.destroy', $admin->id_admin) }}" method="POST">
+                        <a href="{{ route('daftar-guru.edit', $admin->id_admin) }}" class="btn btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+                        
+                        <form action="{{ route('daftar-guru.destroy', $admin->id_admin) }}" method="POST" style="display: inline;">
                               @csrf
                               @method('DELETE')
-                              <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                              <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
                           </form>
-                      </td>
                     </td>
                   </tr>
                   @endforeach
