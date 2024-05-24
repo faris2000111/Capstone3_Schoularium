@@ -5,6 +5,17 @@
 @section('content')
 
 <main id="main" class="main">
+@if ($message = Session::get('success'))
+  <div class="alert alert-success" role="alert">
+    {{ $message }}
+  </div>
+  @endif
+
+  @if ($message = Session::get('error'))
+  <div class="alert alert-danger" role="alert">
+    {{ $message }}
+  </div>
+  @endif
 
     <div class="pagetitle">
         <h1>Absensi Guru</h1>
@@ -26,13 +37,12 @@
                             <h5 class="card-title text-center pb-0 fs-4">Absensi Guru</h5>
                             <p class="text-center small">Pilih status kehadiran untuk setiap guru</p>
                         </div>
-                        <form class="row g-3 needs-validation" action="{{ route('absensi.store') }}" method="POST" novalidate>
+                        <form class="row g-3 needs-validation" action="{{ route('absensi-guru.store') }}" method="POST" novalidate>
                             @csrf
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr style="text-align: center;">
-                                            <th>Nama</th>
                                             <th>Hadir</th>
                                             <th>Izin</th>
                                             <th>Sakit</th>
@@ -43,21 +53,20 @@
                                     <tbody>
                                         @foreach($absens as $absen)
                                             <tr style="text-align: center;">
-                                                <td></td>
                                                 <td>
-                                                    <input type="radio" name="absensi[{{ $absen->id }}][status_kehadiran]" value="Hadir" required>
+                                                    <input type="radio" name="status_kehadiran" value="Hadir" required>
                                                 </td>
                                                 <td>
-                                                    <input type="radio" name="absensi[{{ $absen->id }}][status_kehadiran]" value="Izin" required>
+                                                    <input type="radio" name="status_kehadiran" value="Izin" required>
                                                 </td>
                                                 <td>
-                                                    <input type="radio" name="absensi[{{ $absen->id }}][status_kehadiran]" value="Sakit" required>
+                                                    <input type="radio" name="status_kehadiran" value="Sakit" required>
                                                 </td>
                                                 <td>
-                                                    <input type="radio" name="absensi[{{ $absen->id }}][status_kehadiran]" value="Alpha" required>
+                                                    <input type="radio" name="status_kehadiran" value="Alpha" required>
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="absensi[{{ $absen->id }}][alasan_ketidakhadiran]" class="form-control">
+                                                    <input type="text" name="alasan_ketidakhadiran" class="form-control">
                                                 </td>
                                             </tr>
                                         @endforeach

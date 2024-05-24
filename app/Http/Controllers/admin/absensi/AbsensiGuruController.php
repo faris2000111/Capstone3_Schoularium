@@ -4,32 +4,50 @@ namespace App\Http\Controllers\admin\absensi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
-use App\Models\Absensi;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use App\Models\AbsensiAdmin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AbsensiGuruController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
         $absens = Admin::all();
-        return view('admin/absensi.absensi-guru', compact('absens'));
+        return view('admin/absensi.absensi-guru', compact('absens','user'));
     }
     public function store(Request $request)
-    {
-        $absensiData = $request->input('absensi');
-        foreach ($absensiData as $adminId => $data) {
-            Absensi::create([
-                'id_admin' => $adminId,
-                'status_kehadiran' => $data['status_kehadiran'],
-                'alasan_ketidakhadiran' => $data['alasan_ketidakhadiran'] ?? null,
-            ]);
-        }
+{
+    $id_admin = Auth::id();
+    $todayDate = Carbon::now()->toDateString();
 
-        return redirect()->route('absensi.index')->with('success', 'Absensi berhasil disimpan.');
+    $existingAbsensi = AbsensiAdmin::where('id_admin', $id_admin)
+                                    ->whereDate('tanggal', $todayDate)
+                                    ->first();
+
+    if ($existingAbsensi) {
+        return redirect()->back()->with('error', 'Anda sudah melakukan absensi hari ini.');
     }
+
+    if ($request->status_kehadiran != 'Hadir' && !$request->alasan_ketidakhadiran) {
+        return redirect()->back()->with('error', 'Alasan ketidakhadiran wajib diisi jika status kehadiran adalah Izin atau Sakit.');
+    } elseif ($request->status_kehadiran != 'Hadir' && str_word_count($request->alasan_ketidakhadiran) < 10) {
+        return redirect()->back()->with('error', 'Alasan ketidakhadiran harus memiliki minimal 10 kata.');
+    }
+    
+    
+
+    AbsensiAdmin::create([
+        'id_admin' => $id_admin,
+        'tanggal' => $todayDate,
+        'status_kehadiran' => $request->status_kehadiran,
+        'alasan_ketidakhadiran' => ($request->status_kehadiran == 'Hadir') ? null : $request->alasan_ketidakhadiran,
+    ]);
+
+    return redirect()->route('absensi.index')->with('success', 'Absensi berhasil disimpan.');
+}
+
     public function show()
     {
         $absens = Admin::all();

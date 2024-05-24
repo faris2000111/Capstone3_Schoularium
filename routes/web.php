@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\DashboardController;
 use illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\AbsensiController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::class); 
-Route::resource('daftar-guru', App\Http\Controllers\admin\AdminController::class); 
+Route::middleware(['admin'])->group(function () {
+    Route::resource('daftar-guru', AdminController::class);
+});
+
 Route::resource('absensi', App\Http\Controllers\admin\absensi\AbsensiController::class); 
 Route::resource('absensi-guru', App\Http\Controllers\admin\absensi\AbsensiGuruController::class); 
