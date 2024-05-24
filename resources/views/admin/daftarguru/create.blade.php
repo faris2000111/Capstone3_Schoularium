@@ -47,7 +47,7 @@
 
                             <div class="col-12">
                                 <label for="nip" class="form-label">NIP</label>
-                                <input type="text" name="nip" class="form-control" id="nip" required>
+                                <input type="text" name="nip" class="form-control" id="nip">
                                 <div class="invalid-feedback">Please, enter your NIP!</div>
                             </div>
 

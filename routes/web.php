@@ -6,7 +6,7 @@ use App\Http\Controllers\admin\DashboardController;
 use illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\siswaController;
+use App\Http\Controllers\admin\SiswaController;
 use App\Http\Controllers\ProductController;
 use app\Http\Middleware\LogRequest;
 use App\Http\Controllers\admin\absensi\AbsensiController;

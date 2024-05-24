@@ -32,8 +32,8 @@
                         </td>
                         <td>
                                                     	
-                          <form action="{{ route('siswa.destroy', $row->id_siswa) }}" method="POST" onsubmit = "return confirm('apakah anda yakin..?')">                          	
-                            <a class="btn btn-primary" href="{{ route('siswa.edit',$row->id_siswa) }}">Edit</a>
+                          <form action="{{ route('siswa.destroy', $row->NIS) }}" method="POST" onsubmit = "return confirm('apakah anda yakin..?')">                          	
+                            <a class="btn btn-primary" href="{{ route('siswa.edit',$row->NIS) }}">Edit</a>
                              @csrf
                              @method('DELETE')
                           

@@ -1,23 +1,25 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Models\siswa;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\RedirectResponse;
 
-class siswaController extends Controller
+class SiswaController extends Controller
 {
     public function index()
     {
         $siswa = siswa::latest()->paginate(5);
-        return view('siswa.index',compact('siswa'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('admin/siswa.index',compact('siswa'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
     public function create()
     {
-        return view('siswa.create');
+        return view('admin/siswa.create');
     }
     public function store(Request $request)
     {
@@ -33,7 +35,7 @@ class siswaController extends Controller
         $siswa = [
             'NIS'   => $request->NIS,
             'email'   => $request->email,
-            'password'   => $request->password,
+            'password' => Hash::make($request->password),
             'nama_siswa'   => $request->nama_siswa,
             'kelas'   => $request->kelas,
             'ekstrakurikuler'   => $request->ekstrakurikuler,
@@ -64,7 +66,7 @@ class siswaController extends Controller
     
     public function edit(siswa $siswa)
     {
-        return view('siswa.edit', compact('siswa'));
+        return view('admin/siswa.edit', compact('siswa'));
     }
     // public function update(Request $request, string $id_siswa)
     // {
@@ -147,7 +149,7 @@ class siswaController extends Controller
     // Perbarui data siswa
     $siswa->update($data);
 
-    return redirect()->route('siswa.index')->with('success', 'siswa updated successfully');
+    return redirect()->route('admin/siswa.index')->with('success', 'siswa updated successfully');
 }
 
 
@@ -173,6 +175,6 @@ class siswaController extends Controller
         $siswa->delete();
 
         //redirect to index
-        return redirect()->route('siswa.index')->with('success', 'Data Berhasil Dihapus!');
+        return redirect()->route('admin/siswa.index')->with('success', 'Data Berhasil Dihapus!');
     }
 }

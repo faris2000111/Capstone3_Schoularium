@@ -19,6 +19,7 @@ class AdminController extends Controller
         $user = Auth::user();
         return view('admin/daftarguru.daftar-guru', compact('admins', 'user'));
     }
+
     public function create()
     {
         return view('admin/daftarguru.create');
@@ -32,6 +33,9 @@ class AdminController extends Controller
             // Aturan validasi lainnya...
             'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Contoh: Hanya menerima file gambar dengan maksimal ukuran 2MB
         ]);
+
+        // Inisialisasi variabel $foto
+        $foto = null;
 
         // Proses penyimpanan foto ke penyimpanan
         if ($request->hasFile('foto')) {
@@ -58,6 +62,7 @@ class AdminController extends Controller
 
         return redirect()->route('daftar-guru.index')->with('success', 'Admin created successfully.');
     }
+
     public function edit($id_admin)
     {
         $admin = Admin::findOrFail($id_admin);
@@ -88,15 +93,13 @@ class AdminController extends Controller
             'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Contoh: Hanya menerima file gambar dengan maksimal ukuran 2MB
         ]);
 
-        $admin = Admin::findOrFail($id);
-
         // Proses penyimpanan foto ke penyimpanan
         if ($request->hasFile('foto')) {
             // Hapus foto lama jika ada
             if ($admin->foto) {
                 Storage::disk('public')->delete('foto/guru/' . $admin->foto);
             }
-    
+
             $foto = $request->file('foto')->getClientOriginalName();
             $tujuan_upload = 'foto/guru'; // tanpa "public"
             $request->file('foto')->storeAs($tujuan_upload, $foto, 'public'); // Simpan di storage/app/public/guru/foto
@@ -106,18 +109,18 @@ class AdminController extends Controller
         $admin->jabatan = $request->input('jabatan');
 
         // Update field lainnya sesuai kebutuhan
-
         $admin->save();
 
         return redirect()->route('daftar-guru.index')->with('success', 'Admin updated successfully.');
     }
+
     public function destroy($id)
     {
         $admin = Admin::findOrFail($id);
 
         // Hapus foto dari penyimpanan jika ada
         if ($admin->foto) {
-            Storage::delete($admin->foto);
+            Storage::disk('public')->delete('foto/guru/' . $admin->foto);
         }
 
         // Hapus data admin dari database
@@ -125,6 +128,4 @@ class AdminController extends Controller
 
         return redirect()->route('daftar-guru.index')->with('success', 'Admin deleted successfully.');
     }
-
-
 }
