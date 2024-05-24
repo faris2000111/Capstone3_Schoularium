@@ -35,13 +35,13 @@
   </li><!-- End Forms guru Nav -->
 
   <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('daftar-guru.*','absensi.*','absensi-guru.*') ? '' : 'collapsed' }}" data-bs-target="#forms-siswaCrud-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{ request()->routeIs('siswa.*') ? '' : 'collapsed' }}" data-bs-target="#forms-siswaCrud-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Data Siswa</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-siswaCrud-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <ul id="forms-siswaCrud-nav" class="nav-content collapse {{ request()->routeIs('siswa.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           
           <li>
-            <a href="/siswa">
+            <a href="/siswa" class="nav-link {{ request()->routeIs('siswa.*') ? '' : 'collapsed' }}">
               <i class="bi bi-circle"></i><span>Data Siswa</span>
             </a>
           </li>
