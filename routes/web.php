@@ -29,3 +29,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::class); 
 Route::resource('daftar-guru', App\Http\Controllers\admin\GuruController::class); 
+Route::resource('daftar-kelas', App\Http\Controllers\admin\KelasController::class); 
+
