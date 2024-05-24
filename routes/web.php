@@ -32,9 +32,9 @@ use App\Http\Controllers\admin\absensi\AbsensiController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/dashboard', [DashboardController::class, 'index'], function() {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::resource('dashboard', DashboardController::class)
+    ->only(['index'])
+    ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -44,7 +44,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::class);
+// Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::class);
+
 Route::middleware(['admin'])->group(function () {
     Route::resource('daftar-guru', AdminController::class);
 });
@@ -52,6 +53,7 @@ Route::middleware(['admin'])->group(function () {
 Route::middleware(['guru'])->group(function () {
     Route::resource('absensi', AbsensiController::class);
 });
+
 Route::resource('absensi-guru', App\Http\Controllers\admin\absensi\AbsensiGuruController::class); 
 
 // Route::get('/siswa', [siswaController::class, 'index']);
