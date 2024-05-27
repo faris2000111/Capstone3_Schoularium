@@ -97,12 +97,6 @@
                             </div>
 
                             <div class="col-12">
-                                <label for="tingkat_pendidikan" class="form-label">Tingkat Pendidikan</label>
-                                <input type="text" name="tingkat_pendidikan" class="form-control" id="tingkat_pendidikan" required>
-                                <div class="invalid-feedback">Please, enter your education level!</div>
-                            </div>
-
-                            <div class="col-12">
                                 <label for="foto" class="form-label">Foto</label>
                                 <input type="file" name="foto" class="form-control" id="foto">
                                 <div class="invalid-feedback">Please, upload your photo!</div>

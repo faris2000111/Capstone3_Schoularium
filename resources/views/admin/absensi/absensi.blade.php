@@ -40,7 +40,7 @@
                               <i class="bi bi-card-checklist"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>{{$user->name}}</h6>
+                                <h6>{{$user->nama}}</h6>
                             <span class="text-muted small pt-2 ps-1">Silahkan untuk absensi terlebih dahulu </span>
         
                             </div>
@@ -53,7 +53,7 @@
                 <!-- Sales Card -->
                 <div class="col-xxl-6 col-md-6">
                   <div class="card info-card sales-card">
-                    <a href="">
+                    <a href="{{ route('absensi-siswa.index') }}">
                       <div class="card-body">
                         <h5 class="card-title">Absensi Siswa</h5>
         

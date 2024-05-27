@@ -40,7 +40,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('auth', 'verified');
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('auth', 'verified');
 
 Auth::routes();
 
@@ -51,10 +51,15 @@ Route::middleware(['admin'])->group(function () {
 });
 
 Route::middleware(['guru'])->group(function () {
+    Route::resource('absensi', App\Http\Controllers\admin\absensi\AbsensiController::class);
+    Route::resource('absensi-siswa', App\Http\Controllers\admin\absensi\AbsensiSiswaController::class);
+    Route::resource('absensi-guru', App\Http\Controllers\admin\absensi\AbsensiGuruController::class);
+});
+Route::middleware(['guru'])->group(function () {
     Route::resource('absensi', AbsensiController::class);
 });
 
-Route::resource('absensi-guru', App\Http\Controllers\admin\absensi\AbsensiGuruController::class); 
+ 
 
 // Route::get('/siswa', [siswaController::class, 'index']);
 Route::get('/tambahDataSiswa', function(){
@@ -63,3 +68,4 @@ Route::get('/tambahDataSiswa', function(){
 );
 // Route::resource('siswa', SiswaController::class)->parameters(['siswa' => 'NIS']);
 Route::resource('siswa', SiswaController::class);
+Route::get('/absensi-siswa/get-siswa', 'AbsensiSiswaController@getSiswaByKelas')->name('absensi-siswa.getsiswa');

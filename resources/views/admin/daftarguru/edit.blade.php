@@ -83,11 +83,6 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="tingkat_pendidikan" class="form-label">Tingkat Pendidikan</label>
-                                <input type="text" class="form-control" id="tingkat_pendidikan" name="tingkat_pendidikan" value="{{ $admin->tingkat_pendidikan }}">
-                            </div>
-
-                            <div class="mb-3">
                                 <label for="foto" class="form-label">Foto</label>
                                 <input type="file" class="form-control" id="foto" name="foto">
                             </div>

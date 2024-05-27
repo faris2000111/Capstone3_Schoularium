@@ -44,7 +44,12 @@
               </div>
               <div class="col-12">
                 <label for="kelas" class="form-label">Kelas</label>
-                <input type="text" class="form-control" id="kelas" placeholder="Masukkan Kelas Siswa" name="kelas" value="{{ old('kelas') }}">
+                <select class="form-select" id="kelas" name="kelas">
+                    <option selected disabled>Pilih Kelas</option>
+                    @foreach($kelas as $kelas_item)
+                        <option value="{{ $kelas_item->id_kelas }}">{{ $kelas_item->nama_kelas }}</option>
+                    @endforeach
+                </select>
               </div>
               <div class="col-md-12">
                 <label for="ekstrakurikuler" class="form-label">Ekstrakurikuler</label>

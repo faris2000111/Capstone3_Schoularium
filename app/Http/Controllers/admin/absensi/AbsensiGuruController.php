@@ -35,8 +35,6 @@ class AbsensiGuruController extends Controller
         } elseif ($request->status_kehadiran != 'Hadir' && str_word_count($request->alasan_ketidakhadiran) < 10) {
             return redirect()->back()->with('error', 'Alasan ketidakhadiran harus memiliki minimal 10 kata.');
         }
-        
-        
 
         AbsensiAdmin::create([
             'id_admin' => $id_admin,
