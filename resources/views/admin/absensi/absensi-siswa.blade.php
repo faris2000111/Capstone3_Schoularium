@@ -41,9 +41,9 @@
                             @csrf
                             <div class="col-md-6">
                                 <label for="id_kelas" class="form-label">Kelas</label>
-                                <select class="form-control" id="id_kelas" name="id_kelas" disabled required>
-                                @foreach($siswa as $kelas)
-                                    <option value="{{ $kelas->id_kelas }}">{{ $kelas->nama_kelas }}</option>
+                                <select class="form-control" id="id_kelas" name="id_kelas" required>
+                                @foreach($kelas as $kelas_list)
+                                    <option value="{{ $kelas_list->id_kelas }}">{{ $kelas_list->nama_kelas }}</option>
                                 @endforeach
                                 </select>
                             </div>

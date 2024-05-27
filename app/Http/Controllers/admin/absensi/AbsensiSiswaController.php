@@ -18,6 +18,7 @@ class AbsensiSiswaController extends Controller
     {
         // Ambil data admin yang sedang login
         $admin = Auth::user();
+        $kelas = Kelas::all(); 
 
         // Ambil data siswa dan mata pelajaran yang diajarkan oleh admin
         $siswa = DB::table('siswa')
@@ -40,7 +41,7 @@ class AbsensiSiswaController extends Controller
             return !$absensiHariIni->contains($siswa->NIS);
         });
 
-        return view('admin/absensi.absensi-siswa', compact('siswaBelumAbsen', 'mata_pelajaran', 'siswa'));
+        return view('admin/absensi.absensi-siswa', compact('siswaBelumAbsen', 'mata_pelajaran', 'siswa', 'kelas'));
     }
 
     public function store(Request $request)

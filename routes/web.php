@@ -68,4 +68,3 @@ Route::get('/tambahDataSiswa', function(){
 );
 // Route::resource('siswa', SiswaController::class)->parameters(['siswa' => 'NIS']);
 Route::resource('siswa', SiswaController::class);
-Route::get('/absensi-siswa/get-siswa', 'AbsensiSiswaController@getSiswaByKelas')->name('absensi-siswa.getsiswa');

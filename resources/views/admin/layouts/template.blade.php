@@ -28,6 +28,11 @@
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
+  <!-- jQuery -->
+  <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -81,6 +86,7 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
+  <script src="{{asset('assets/js/jquery.js')}}"></script>
   <!-- <script src="assets/js/main.js"></script> -->
 
 </body>
