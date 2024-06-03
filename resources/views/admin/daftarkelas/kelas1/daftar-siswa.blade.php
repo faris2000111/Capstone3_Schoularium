@@ -1,17 +1,17 @@
 @extends('admin.layouts.template')
 
-@section('title', 'Daftar - Kelas - 2 - Schoularium')
+@section('title', 'Daftar - Kelas - Schoularium')
 
 @section('content')
 
 <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Data Kelas 2</h1>
+      <h1>Data Kelas</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-          <li class="breadcrumb-item active">Daftar Kelas 2</li>
+          <li class="breadcrumb-item active">Daftar Siswa</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -22,35 +22,37 @@
 
           <div class="card">
             <div class="card-header text-right">
-                <a href="{{ route('daftar-kelas.create') }}" class="btn btn-primary" role="button">Tambah Data</a>
+
+              <a href="{{ route('daftar-kelas.index') }}" class="btn btn-primary">Lihat Kelas</a>
+
             </div>
             <div class="card-body">          
 
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
-                  <tr style="text-align: center;">
-                    <th>Nama Kelas</th>
+                  <tr>
                     <th>Nama Siswa</th>
-                    <th>Wali Kelas</th>
+                    <th>NIS</th>
+                    <th>Email</th>
+                    <th>Foto</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($kelas as $kelas)
-                  <tr style="text-align: center;">
-                    <td>1{{ $kelas->nama_kelas }}</td>
-                    <td>{{ $kelas->nama_siswa }}</td>
-                    <td>{{ $kelas->nama_walikelas }}</td>
+                  @foreach($siswa as $siswa)
+                  <tr>
+                    <td>{{ $siswa->nama_siswa }}</td>
+                    <td>{{ $siswa->NIS }}</td>
+                    <td>{{ $siswa->email }}</td>
+                    <td><img src="{{ asset('storage/'.$siswa->foto) }}" width="100" height="100"></td>
                     <td>
-                        <a href="{{ route('daftar-kelas.edit', $kelas->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                        <td>
-                          <form action="{{ route('daftar-kelas.destroy', $kelas->id) }}" method="POST">
-                              @csrf
+                      <form action="{{ route('daftar-siswa.destroyStudent', $siswa->NIS) }}" method="POST">
+                        @csrf
+                              <a href="{{ route('daftar-siswa.editStudent', $siswa->NIS) }}" class="btn btn-sm btn-primary">Edit</a>
                               @method('DELETE')
                               <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                          </form>
-                      </td>
+                      </form>
                     </td>
                   </tr>
                   @endforeach

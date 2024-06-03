@@ -1,6 +1,6 @@
 @extends('admin.layouts.template')
 
-@section('title', 'Daftar - Kelas -1 - Schoularium')
+@section('title', 'Daftar - Kelas - Schoularium')
 
 @section('content')
 
@@ -11,7 +11,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-          <li class="breadcrumb-item active">Daftar Kelas 1</li>
+          <li class="breadcrumb-item active">Daftar Kelas</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -29,28 +29,27 @@
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
-                  <tr style="text-align: center;">
+                  <tr>
                     <th>Nama Kelas</th>
-                    <th>Nama Siswa</th>
                     <th>Wali Kelas</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach($kelas as $kelas)
-                  <tr style="text-align: center;">
-                    <td>1{{ $kelas->nama_kelas }}</td>
-                    <td>{{ $kelas->nama_siswa }}</td>
-                    <td>{{ $kelas->nama_walikelas }}</td>
+                  <tr>
+                    <td>{{ $kelas->nama_kelas }}</td>
+                    <td>{{ $kelas->nama }}</td>
                     <td>
-                        <a href="{{ route('daftar-kelas.edit', $kelas->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                        <td>
-                          <form action="{{ route('daftar-kelas.destroy', $kelas->id) }}" method="POST">
-                              @csrf
+                      
+                      <form action="{{ route('daftar-kelas.destroy', $kelas->id_kelas) }}" method="POST">
+                        @csrf
+                              <a href="{{ route('daftar-kelas.edit', $kelas->id_kelas) }}" class="btn btn-sm btn-primary">Edit</a>
                               @method('DELETE')
                               <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                              <a href="{{ route('daftar-siswa.indexStudents', $kelas->id_kelas) }}" class="btn btn-sm btn-success">Lihat Siswa</a>
                           </form>
-                      </td>
+                      
                     </td>
                   </tr>
                   @endforeach
