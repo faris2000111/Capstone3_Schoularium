@@ -10,6 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
+  <link href="{{assets('assets/img/favicon.png')}}" rel="stylesheet">
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -29,6 +30,7 @@
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
   <!-- =======================================================
+  
   * Template Name: NiceAdmin
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
   * Updated: Apr 20 2024 with Bootstrap v5.3.3
@@ -45,6 +47,7 @@
 
  <!-- ======= Sidebar ======= -->
 @include('admin/layouts.sidebar')
+@include('siswa/layouts.alert')
  <!-- End Sidebar-->
 
 

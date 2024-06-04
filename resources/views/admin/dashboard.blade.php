@@ -1,14 +1,27 @@
 @extends('admin/layouts.template')
 
+@section('title', 'Dashboard - Schoularium')
+
 @section('content')
 
 <main id="main" class="main">
+@if ($message = Session::get('success'))
+  <div class="alert alert-success" role="alert">
+    {{ $message }}
+  </div>
+  @endif
+
+  @if ($message = Session::get('error'))
+  <div class="alert alert-danger" role="alert">
+    {{ $message }}
+  </div>
+  @endif
 
     <div class="pagetitle">
       <h1>Dashboard Admin</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
