@@ -34,7 +34,7 @@ use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
 */
 Route::get('/dashboard', [DashboardController::class, 'index'], function() {
     return view('dashboard');
-})->middleware(['auth', 'verified']);
+})->middleware(['auth', 'verified'])->name('dashboard.index');
 
 Route::get('/', function () {
     return redirect()->route('login');
