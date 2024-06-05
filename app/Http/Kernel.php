@@ -46,6 +46,7 @@ class Kernel extends HttpKernel
         ],
     ];
 
+
     /**
      * The application's middleware aliases.
      *
@@ -70,6 +71,6 @@ class Kernel extends HttpKernel
     ];
     protected $routeMiddleware = [
         'log.requests' => \App\Http\Middleware\LogRequests::class,
-        // middleware lainnya
+        'role' => \App\Http\Middleware\EnsureUserRole::class,
     ];
 }

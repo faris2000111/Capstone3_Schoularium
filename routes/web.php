@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\admin\AdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\DashboardController;
 use illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\SiswaController;
 use App\Http\Controllers\ProductController;
 use app\Http\Middleware\LogRequest;
 use App\Http\Controllers\admin\absensi\AbsensiController;
+use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
 use App\Http\Controllers\RedirectResponse;
 
 
@@ -33,15 +34,30 @@ try {
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::resource('dashboard', DashboardController::class)
-    ->only(['index'])
-    ->middleware(['auth', 'verified']);
+Route::get('/dashboard', [DashboardController::class, 'index'], function() {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard.index');
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('auth', 'verified');
+Route::post('/login', [CustomAuthenticatedSessionController::class, 'store'])->name('login');
+Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+// Route::middleware(['auth', 'role:admin'])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('admin.dashboard');
+//     })->name('admin.dashboard');
+// });
+
+// Route::middleware(['auth', 'role:siswa'])->group(function () {
+//     Route::get('/siswa/dashboard', function () {
+//         return view('siswa.dashboard');
+//     })->name('siswa.dashboard');
+// });
+
+
 
 Auth::routes();
 
@@ -55,7 +71,7 @@ Route::middleware(['guru'])->group(function () {
     Route::resource('absensi', AbsensiController::class);
 });
 
-Route::resource('absensi-guru', App\Http\Controllers\admin\absensi\AbsensiGuruController::class); 
+Route::resource('absensi-guru', App\Http\Controllers\admin\absensi\AbsensiGuruController::class);
 
 // Route::get('/siswa', [siswaController::class, 'index']);
 Route::get('/tambahDataSiswa', function(){
