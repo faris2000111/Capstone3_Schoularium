@@ -14,16 +14,16 @@ use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
 use App\Http\Controllers\RedirectResponse;
 
 
-try {
-    DB::connection()->getPdo();
-    if(DB::connection()->getDatabaseName()){
-        echo "Yes! Successfully connected to the DB: " . DB::connection()->getDatabaseName();
-    }else{
-        die("Could not find the database. Please check your configuration.");
-    }
-} catch (\Exception $e) {
-    die("Could not open connection to database server.  Please check your configuration.");
-}
+// try {
+//     DB::connection()->getPdo();
+//     if(DB::connection()->getDatabaseName()){
+//         echo "Yes! Successfully connected to the DB: " . DB::connection()->getDatabaseName();
+//     }else{
+//         die("Could not find the database. Please check your configuration.");
+//     }
+// } catch (\Exception $e) {
+//     die("Could not open connection to database server.  Please check your configuration.");
+// }
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,7 +43,7 @@ Route::get('/', function () {
 });
 
 Route::post('/login', [CustomAuthenticatedSessionController::class, 'store'])->name('login');
-Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
+// Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 // Route::middleware(['auth', 'role:admin'])->group(function () {
 //     Route::get('/dashboard', function () {
