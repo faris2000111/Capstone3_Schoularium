@@ -10,6 +10,7 @@
                     <th scope="col">No</th>
                     <th scope="col">NIS</th>
                     <th scope="col">Nama</th>
+                    <th scope="col">Jenis kelamin</th>
                     <th scope="col">Email</th>
                     <th scope="col">Kelas</th>
                     <th scope="col">Ekstrakurikuler</th>
@@ -23,20 +24,27 @@
                         <th>{{$loop->iteration}}</th>
                         <td>{{$row->NIS}}</td>
                         <td>{{$row->nama_siswa}}</td>
+                        <td>{{$row->jenis_kelamin}}</td>
                         <td>{{$row->email}}</td>
-                        <td>{{$row->kelas}}</td>
-                        <td>{{$row->ekstrakurikuler}}</td>
+                        <td>{{$row->kelas->nama_kelas}}</td>
+                        @if ($row->id_ekstrakurikuler == 0)
+                            <td>belum mengikuti ekstrakurikuler</td>
+                        @else
+                            <td>{{$row->ekstrakurikuler->nama_ekstrakurikuler}}</td>
+                        @endif
+                        {{-- <td>{{$row->ekstrakurikuler->nama_ekstrakurikuler}}</td> --}}
+                        {{-- <td>{{$row->id_ekstrakurikuler}}</td> --}}
                         <td>
-                          <img src="foto_siswa/{{ $row->foto }}" alt="" 
+                          <img src="foto_siswa/{{ $row->foto }}" alt=""
                           height="60px" class="">
                         </td>
                         <td>
-                                                    	
-                          <form action="{{ route('siswa.destroy', $row->NIS) }}" method="POST" onsubmit = "return confirm('apakah anda yakin..?')">                          	
-                            <a class="btn btn-primary" href="{{ route('siswa.edit',$row->NIS) }}">Edit</a>
+
+                          <form action="{{ route('siswa.destroy', $row->id_siswa) }}" method="POST" onsubmit = "return confirm('apakah anda yakin..?')">
+                            <a class="btn btn-primary" href="{{ route('siswa.edit',$row->id_siswa) }}">Edit</a>
                              @csrf
                              @method('DELETE')
-                          
+
                              <button type="submit" class="btn btn-danger">Delete</button>
                           </form>
 

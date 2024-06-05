@@ -30,7 +30,7 @@
           <i class="bi bi-circle"></i><span>Jadwal Guru</span>
         </a>
       </li>
-      
+
     </ul>
   </li><!-- End Forms guru Nav -->
 
@@ -39,14 +39,14 @@
           <i class="bi bi-journal-text"></i><span>Data Siswa</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-siswaCrud-nav" class="nav-content collapse {{ request()->routeIs('siswa.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
-          
+
           <li>
             <a href="/siswa" class="nav-link {{ request()->routeIs('siswa.*') ? '' : 'collapsed' }}">
               <i class="bi bi-circle"></i><span>Data Siswa</span>
             </a>
           </li>
         </ul>
-      </li><!-- End Forms Nav -->
+    </li><!-- End Forms Nav -->
 
   <li class="nav-heading">Pages</li>
 

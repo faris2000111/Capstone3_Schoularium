@@ -43,12 +43,30 @@
                 <input type="text" class="form-control" id="nama_siswa" placeholder="Masukkan Nama Lengkap Siswa" name="nama_siswa" value="{{ old('nama_siswa') }}">
               </div>
               <div class="col-12">
-                <label for="kelas" class="form-label">Kelas</label>
-                <input type="text" class="form-control" id="kelas" placeholder="Masukkan Kelas Siswa" name="kelas" value="{{ old('kelas') }}">
+                <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+                    <option value="L">Laki-Laki</option>
+                    <option value="P">Perempuan</option>
+                </select>
+                <div class="invalid-feedback">Please, select your gender!</div>
+                </div>
+              <div class="col-12">
+                <label for="id_kelas" class="form-label">id_Kelas</label>
+                <select class="form-control" id="id_kelas" name="id_kelas" required>
+                    @foreach ($kelas as $row)
+                    <option value="{{ $row->id_kelas }}">{{ $row->nama_kelas }}</option>
+                    @endforeach
+                </select>
+                <div class="invalid-feedback">Please, select your gender!</div>
               </div>
               <div class="col-md-12">
-                <label for="ekstrakurikuler" class="form-label">Ekstrakurikuler</label>
-                <input type="text" class="form-control" id="ekstrakurikuler" placeholder="Masukkan ekstrakurikuler yang diikuti Siswa" name="ekstrakurikuler" value="{{ old('ekstrakurikuler') }}">
+                <label for="id_ekstrakurikuler" class="form-label">id_Ekstrakurikuler</label>
+                <select class="form-control" id="id_ekstrakurikuler" name="id_ekstrakurikuler">
+                    <option value="0">kosong</option>
+                    @foreach ($ekstrakurikuler as $row)
+                    <option value="{{ $row->id_ekstrakurikuler }}">{{ $row->nama_ekstrakurikuler }}</option>
+                    @endforeach
+                </select>
               </div>
               <div class="col-md-12">
                 <label for="foto" class="col-sm-2 col-form-label">File Upload</label>

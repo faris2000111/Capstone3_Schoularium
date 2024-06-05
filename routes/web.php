@@ -10,18 +10,19 @@ use App\Http\Controllers\admin\SiswaController;
 use App\Http\Controllers\ProductController;
 use app\Http\Middleware\LogRequest;
 use App\Http\Controllers\admin\absensi\AbsensiController;
+use App\Http\Controllers\RedirectResponse;
 
 
-// try {
-//     DB::connection()->getPdo();
-//     if(DB::connection()->getDatabaseName()){
-//         echo "Yes! Successfully connected to the DB: " . DB::connection()->getDatabaseName();
-//     }else{
-//         die("Could not find the database. Please check your configuration.");
-//     }
-// } catch (\Exception $e) {
-//     die("Could not open connection to database server.  Please check your configuration.");
-// }
+try {
+    DB::connection()->getPdo();
+    if(DB::connection()->getDatabaseName()){
+        echo "Yes! Successfully connected to the DB: " . DB::connection()->getDatabaseName();
+    }else{
+        die("Could not find the database. Please check your configuration.");
+    }
+} catch (\Exception $e) {
+    die("Could not open connection to database server.  Please check your configuration.");
+}
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,5 +62,6 @@ Route::get('/tambahDataSiswa', function(){
     return view('siswa.tambahsiswa');
 }
 );
+// Route::get('/admin/siswa.index', SiswaController::class);
 // Route::resource('siswa', SiswaController::class)->parameters(['siswa' => 'NIS']);
 Route::resource('siswa', SiswaController::class);
