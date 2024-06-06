@@ -1,17 +1,20 @@
 <?php
 
-use App\Http\Controllers\admin\AdminController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\admin\SiswaController;
-use App\Http\Controllers\ProductController;
 use app\Http\Middleware\LogRequest;
-use App\Http\Controllers\admin\absensi\AbsensiController;
-use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RedirectResponse;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\admin\GuruController;
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\KelasController;
+use App\Http\Controllers\admin\SiswaController;
+use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\absensi\AbsensiController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
 
 
 try {
@@ -81,3 +84,27 @@ Route::get('/tambahDataSiswa', function(){
 // Route::get('/admin/siswa.index', SiswaController::class);
 // Route::resource('siswa', SiswaController::class)->parameters(['siswa' => 'NIS']);
 Route::resource('siswa', SiswaController::class);
+
+
+Route::resource('daftar-kelas', App\Http\Controllers\admin\KelasController::class); 
+Route::get('daftar-kelas', [KelasController::class, 'index'])->name('daftar-kelas.index');
+Route::get('daftar-kelas/create', [KelasController::class, 'create'])->name('daftar-kelas.create');
+Route::get('daftar-kelas/{id}/edit', [KelasController::class, 'edit'])->name('daftar-kelas.edit');
+Route::post('daftar-kelas', [KelasController::class, 'store'])->name('daftar-kelas.store');
+Route::delete('daftar-kelas/{id}', [KelasController::class, 'destroy'])->name('daftar-kelas.destroy');
+
+Route::get('daftar-siswa/{id_kelas}', [KelasController::class, 'indexStudents'])->name('daftar-siswa.indexStudents');
+Route::get('daftar-siswa/create', [KelasController::class, 'createStudent'])->name('create-siswa.createStudent');
+Route::post('daftar-siswa', [KelasController::class, 'storeStudent'])->name('daftar-siswa.storeStudent');
+Route::get('daftar-siswa/{nis}/edit', [KelasController::class, 'editStudent'])->name('daftar-siswa.editStudent');
+Route::put('daftar-siswa/{nis}', [KelasController::class, 'updateStudent'])->name('daftar-siswa.updateStudent');
+Route::delete('/siswa/{nis}', [KelasController::class, 'destroyStudent'])->name('daftar-siswa.destroyStudent');
+
+
+
+
+
+
+
+
+
