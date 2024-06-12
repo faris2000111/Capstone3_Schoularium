@@ -10,7 +10,7 @@ class Siswa extends Model
     use HasFactory;
 
     protected $table = 'siswa';
-    protected $primaryKey = 'NIS';
+    protected $primaryKey = 'id_siswa';
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -19,8 +19,15 @@ class Siswa extends Model
         'email',
         'password',
         'nama_siswa',
+        'jenis_kelamin',
         'foto',
         'id_kelas',
         'id_ekstrakurikuler'
     ];
+    public function kelas(){
+        return $this->hasOne('App\models\kelas', 'id_kelas', 'id_kelas');
+    }
+    public function ekstrakurikuler(){
+        return $this->hasOne('App\models\ekstrakurikuler', 'id_ekstrakurikuler', 'id_ekstrakurikuler');
+    }
 }

@@ -27,11 +27,21 @@
                         <td>{{$row->jenis_kelamin}}</td>
                         <td>{{$row->email}}</td>
                         <td>{{$row->kelas->nama_kelas}}</td>
-                        @if ($row->id_ekstrakurikuler == 0)
-                            <td>belum mengikuti ekstrakurikuler</td>
+                        @php
+                            $ekstra = DB::table('ekstrakurikuler')->where('id_ekstrakurikuler', $row->id_ekstrakurikuler)->first();
+                        @endphp
+                        @if($ekstra)
+                            <td>{{$ekstra->nama_ekstrakurikuler}}</td>
                         @else
-                            <td>{{$row->ekstrakurikuler->nama_ekstrakurikuler}}</td>
+                            <td>belum ikut ekstra</td>
                         @endif
+
+
+                        {{-- @if ({{$row->ekstrakurikuler->nama_ekstrakurikuler}})
+                            <td>{{$row->ekstrakurikuler->nama_ekstrakurikuler}}</td>
+                        @else
+                            <td>belum mengikuti ekstrakurikuler</td>
+                        @endif --}}
                         {{-- <td>{{$row->ekstrakurikuler->nama_ekstrakurikuler}}</td> --}}
                         {{-- <td>{{$row->id_ekstrakurikuler}}</td> --}}
                         <td>

@@ -17,7 +17,8 @@ class SiswaController extends Controller
     public function index()
     {
         $siswa = siswa::all();
-        return view('admin/siswa.index',compact('siswa'));
+        $ekstrakurikuler = ekstrakurikuler::all();
+        return view('admin/siswa.index',compact('siswa','ekstrakurikuler'));
     }
     public function create()
     {

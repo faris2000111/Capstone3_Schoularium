@@ -90,9 +90,9 @@ Route::resource('ekstrakurikuler', EkstrakurikulerController::class);
 Route::resource('daftar-kelas', App\Http\Controllers\admin\KelasController::class);
 Route::get('daftar-kelas', [KelasController::class, 'index'])->name('daftar-kelas.index');
 Route::get('daftar-kelas/create', [KelasController::class, 'create'])->name('daftar-kelas.create');
-Route::get('daftar-kelas/{id}/edit', [KelasController::class, 'edit'])->name('daftar-kelas.edit');
+// Route::get('daftar-kelas/{id}/edit', [KelasController::class, 'edit'])->name('daftar-kelas.edit');
 Route::post('daftar-kelas', [KelasController::class, 'store'])->name('daftar-kelas.store');
-Route::delete('daftar-kelas/{id}', [KelasController::class, 'destroy'])->name('daftar-kelas.destroy');
+// Route::delete('daftar-kelas/{id}', [KelasController::class, 'destroy'])->name('daftar-kelas.destroy');
 
 Route::get('daftar-siswa/{id_kelas}', [KelasController::class, 'indexStudents'])->name('daftar-siswa.indexStudents');
 Route::get('daftar-siswa/create', [KelasController::class, 'createStudent'])->name('create-siswa.createStudent');
