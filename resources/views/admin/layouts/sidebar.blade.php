@@ -45,6 +45,11 @@
               <i class="bi bi-circle"></i><span>Data Siswa</span>
             </a>
           </li>
+          <li>
+            <a href="/ekstrakurikuler" class="nav-link {{ request()->routeIs('ekstrakurikuler.*') ? '' : 'collapsed' }}">
+              <i class="bi bi-circle"></i><span>ekstrakurikuler</span>
+            </a>
+          </li>
         </ul>
     </li><!-- End Forms Nav -->
 

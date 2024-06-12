@@ -19,7 +19,7 @@ class CustomAuthenticatedSessionController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
 
-            if (Auth::user()->jabatan == 'Admin') {
+            if (Auth::user()->jabatan == 'admin') {
                 return redirect()->intended('/admin/dashboard');
             }
 

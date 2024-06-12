@@ -9,7 +9,7 @@ class AdminOnly
 {
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->jabatan === 'Admin') {
+        if (Auth::check() && Auth::user()->jabatan === 'admin') {
             return $next($request);
         }
 

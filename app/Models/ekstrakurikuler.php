@@ -13,4 +13,7 @@ class ekstrakurikuler extends Model
     protected $fillable = [
         'id_ekstrakurikuler', 'nama_ekstrakurikuler', 'id_admin'
     ];
+    public function guru(){
+        return $this->hasOne('App\models\Admin', 'id_admin', 'id_admin');
+    }
 }

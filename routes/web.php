@@ -11,8 +11,8 @@ use App\Http\Controllers\ProductController;
 use app\Http\Middleware\LogRequest;
 use App\Http\Controllers\admin\absensi\AbsensiController;
 use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
+use App\Http\Controllers\admin\EkstrakurikulerController;
 use App\Http\Controllers\RedirectResponse;
-
 
 // try {
 //     DB::connection()->getPdo();
@@ -81,3 +81,4 @@ Route::get('/tambahDataSiswa', function(){
 // Route::get('/admin/siswa.index', SiswaController::class);
 // Route::resource('siswa', SiswaController::class)->parameters(['siswa' => 'NIS']);
 Route::resource('siswa', SiswaController::class);
+Route::resource('ekstrakurikuler', EkstrakurikulerController::class);

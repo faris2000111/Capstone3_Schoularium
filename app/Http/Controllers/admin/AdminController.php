@@ -53,7 +53,7 @@ class AdminController extends Controller
             'no_telp' => $request->no_telp,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'mata_pelajaran' => $request->mata_pelajaran,
+            'id_mata_pelajaran' => $request->id_mata_pelajaran,
             'tingkat_pendidikan' => $request->tingkat_pendidikan,
             'foto' => $foto,
             'jabatan' => $request->jabatan,
