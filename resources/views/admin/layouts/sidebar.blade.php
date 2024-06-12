@@ -53,6 +53,29 @@
         </ul>
     </li><!-- End Forms Nav -->
 
+  <li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('daftar-kelas.index') ? '' : 'collapsed' }}" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-journal-text"></i><span>Data Kelas</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="forms-nav" class="nav-content collapse {{ request()->routeIs('daftar-kelas.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+      <li>
+        <a href="{{ route('daftar-kelas.index') }}" class="nav-link {{ request()->routeIs('daftar-kelas.index') ? '' : 'collapsed' }}">
+          <i class="bi bi-circle"></i><span>Daftar Kelas</span>
+        </a>
+      </li>
+      {{-- <li>
+        <a href="{{ route('daftar-kelas.index') }}" class="nav-link {{ request()->routeIs('daftar-kelas.index') ? '' : 'collapsed' }}">
+          <i class="bi bi-circle"></i><span>Kelas 2</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ route('daftar-kelas.index') }}" class="nav-link {{ request()->routeIs('daftar-kelas.index') ? '' : 'collapsed' }}">
+          <i class="bi bi-circle"></i><span>Kelas 3</span>
+        </a>
+      </li> --}}
+    </ul>
+  </li><!-- End Forms Nav -->
+
   <li class="nav-heading">Pages</li>
 
   <li class="nav-item">
