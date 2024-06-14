@@ -5,15 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ekstrakurikuler extends Model
+class Ekstrakurikuler extends Model
 {
     use HasFactory;
+
     protected $table = 'ekstrakurikuler';
     protected $primaryKey = 'id_ekstrakurikuler';
+
     protected $fillable = [
-        'id_ekstrakurikuler', 'nama_ekstrakurikuler', 'id_admin'
+        'nama_ekstrakurikuler',
+        'id_admin'
     ];
-    public function guru(){
-        return $this->hasOne('App\models\Admin', 'id_admin', 'id_admin');
+
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class, 'id_ekstrakurikuler', 'id_ekstrakurikuler');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'id_admin', 'id_admin');
     }
 }
