@@ -46,7 +46,7 @@ Route::get('/', function () {
 });
 
 Route::post('/login', [CustomAuthenticatedSessionController::class, 'store'])->name('login');
-// Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::post('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 // Route::middleware(['auth', 'role:admin'])->group(function () {
 //     Route::get('/dashboard', function () {
