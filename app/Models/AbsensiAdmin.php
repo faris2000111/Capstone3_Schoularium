@@ -31,4 +31,12 @@ class AbsensiAdmin extends Model
     protected $fillable = [
         'id_admin', 'tanggal', 'status_kehadiran', 'alasan_ketidakhadiran'
     ];
+
+    /**
+     * Get the admin that owns the absensi.
+     */
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'id_admin', 'id_admin');
+    }
 }

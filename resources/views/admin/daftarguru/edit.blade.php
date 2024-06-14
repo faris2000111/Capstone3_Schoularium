@@ -46,7 +46,7 @@
 
                             <div class="mb-3">
                                 <label for="nip" class="form-label">NIP</label>
-                                <input type="text" class="form-control" id="nip" name="nip" value="{{ $admin->nip }}" required>
+                                <input type="text" class="form-control" id="nip" name="nip" value="{{ $admin->nip }}">
                             </div>
 
                             <div class="mb-3">
@@ -80,11 +80,6 @@
                             <div class="mb-3">
                                 <label for="mata_pelajaran" class="form-label">Mata Pelajaran</label>
                                 <input type="text" class="form-control" id="mata_pelajaran" name="mata_pelajaran" value="{{ $admin->mata_pelajaran }}">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="tingkat_pendidikan" class="form-label">Tingkat Pendidikan</label>
-                                <input type="text" class="form-control" id="tingkat_pendidikan" name="tingkat_pendidikan" value="{{ $admin->tingkat_pendidikan }}">
                             </div>
 
                             <div class="mb-3">

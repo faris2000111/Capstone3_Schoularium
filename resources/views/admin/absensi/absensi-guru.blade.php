@@ -51,7 +51,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($absens as $absen)
                                             <tr style="text-align: center;">
                                                 <td>
                                                     <input type="radio" name="status_kehadiran" value="Hadir" required>
@@ -69,7 +68,6 @@
                                                     <input type="text" name="alasan_ketidakhadiran" class="form-control">
                                                 </td>
                                             </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

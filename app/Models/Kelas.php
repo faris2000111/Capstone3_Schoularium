@@ -15,4 +15,19 @@ class Kelas extends Model
         'nama_kelas',
         'id_admin',
     ];
+
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class, 'id_kelas', 'id_kelas');
+    }
+
+    public function absensi()
+    {
+        return $this->hasMany(AbsensiSiswa::class, 'id_kelas', 'id_kelas');
+    }
+
+    public function mataPelajaran()
+    {
+        return $this->hasMany(MataPelajaran::class, 'id_kelas', 'id_kelas');
+    }
 }
