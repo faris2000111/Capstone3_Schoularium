@@ -59,8 +59,8 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::post('/login', [CustomAuthenticatedSessionController::class, 'store'])->name('login');
-Route::post('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
+// Route::post('/login', [CustomAuthenticatedSessionController::class, 'store'])->name('login');
+Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 // Route::middleware(['auth', 'role:admin'])->group(function () {
 //     Route::get('/dashboard', function () {
