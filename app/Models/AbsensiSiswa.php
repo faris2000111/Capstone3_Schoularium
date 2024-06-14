@@ -20,4 +20,8 @@ class AbsensiSiswa extends Model
         'id_kelas',
         'id_mata_pelajaran',
     ];
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'NIS', 'NIS');
+    }
 }

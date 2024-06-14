@@ -42,19 +42,21 @@
                             <div class="col-md-6">
                                 <label for="id_kelas" class="form-label">Kelas</label>
                                 <select class="form-control" id="id_kelas" name="id_kelas" required>
-                                @foreach($kelas as $kelas_list)
-                                    <option value="{{ $kelas_list->id_kelas }}">{{ $kelas_list->nama_kelas }}</option>
-                                @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="id_mata_pelajaran" class="form-label">Mata Pelajaran</label>
-                                <select class="form-control" id="id_mata_pelajaran" name="id_mata_pelajaran" disabled required>
-                                    @foreach($mata_pelajaran as $mapel)
-                                        <option value="{{ $mapel->id_mata_pelajaran }}">{{ $mapel->nama_pelajaran }}</option>
+                                    <option value="">-- Pilih Kelas --</option>
+                                    @foreach($kelas as $kelasItem)
+                                        <option value="{{ $kelasItem->id_kelas }}">{{ $kelasItem->nama_kelas }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
+                            <div class="col-md-6">
+                                <label for="id_mata_pelajaran" class="form-label">Mata Pelajaran</label>
+                                <input type="text" class="form-control" id="nama_mata_pelajaran" value="{{ $mata_pelajaran->first()->nama_pelajaran }}" readonly>
+                                <input type="hidden" id="id_mata_pelajaran" name="id_mata_pelajaran" value="{{ $mata_pelajaran->first()->id_mata_pelajaran }}">
+                            </div>
+
+                            <input type="hidden" id="id_admin" value="{{ Auth::user()->id_admin }}">
+
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
@@ -67,29 +69,8 @@
                                             <th>Alasan Ketidakhadiran</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @foreach($siswaBelumAbsen as $item)
-                                            <tr style="text-align: center;">
-                                                <td>
-                                                    {{ $item->nama_siswa }}
-                                                </td>
-                                                <td>
-                                                    <input type="radio" name="status_kehadiran[{{ $item->NIS }}]" value="Hadir" >
-                                                </td>
-                                                <td>
-                                                    <input type="radio" name="status_kehadiran[{{ $item->NIS }}]" value="Izin" >
-                                                </td>
-                                                <td>
-                                                    <input type="radio" name="status_kehadiran[{{ $item->NIS }}]" value="Sakit" >
-                                                </td>
-                                                <td>
-                                                    <input type="radio" name="status_kehadiran[{{ $item->NIS }}]" value="Alpha" >
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="alasan_ketidakhadiran[{{ $item->NIS }}]" class="form-control">
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                    <tbody id="siswa-table-body">
+                                        <!-- Siswa data will be loaded here by JavaScript -->
                                     </tbody>
                                 </table>
                             </div>
@@ -104,5 +85,63 @@
     </section>
 
 </main><!-- End #main -->
+
+@endsection
+
+@section('scripts')
+<script>
+    document.getElementById('id_kelas').addEventListener('change', function() {
+        var idKelas = this.value;
+        var idMataPelajaran = document.getElementById('id_mata_pelajaran').value;
+        var todayDate = new Date().toISOString().slice(0, 10);
+        var idAdmin = document.getElementById('id_admin').value;
+
+        fetch(`/check-absensi/${idMataPelajaran}/${idKelas}/${todayDate}/${idAdmin}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                var siswaTableBody = document.getElementById('siswa-table-body');
+                siswaTableBody.innerHTML = '';
+
+                // Jika ada siswa yang sudah absen, tampilkan data mereka
+                if (data.absensiDone) {
+                    data.siswa.forEach(siswa => {
+                        var absensi = data.siswaSudahAbsen.find(a => a.NIS === siswa.NIS);
+                        var status = absensi ? absensi.status_kehadiran : '';
+                        var alasan = absensi ? absensi.alasan_ketidakhadiran : '';
+                        var row = `<tr style="text-align: center;">
+                            <td>${siswa.nama_siswa}</td>
+                            <td><input type="radio" name="status_kehadiran[${siswa.NIS}]" value="Hadir" ${status === 'Hadir' ? 'checked' : ''}></td>
+                            <td><input type="radio" name="status_kehadiran[${siswa.NIS}]" value="Izin" ${status === 'Izin' ? 'checked' : ''}></td>
+                            <td><input type="radio" name="status_kehadiran[${siswa.NIS}]" value="Sakit" ${status === 'Sakit' ? 'checked' : ''}></td>
+                            <td><input type="radio" name="status_kehadiran[${siswa.NIS}]" value="Alpha" ${status === 'Alpha' ? 'checked' : ''}></td>
+                            <td><input type="text" name="alasan_ketidakhadiran[${siswa.NIS}]" class="form-control" value="${alasan}"></td>
+                        </tr>`;
+                        siswaTableBody.insertAdjacentHTML('beforeend', row);
+                    });
+                } else {
+                    // Jika belum ada siswa yang absen, tampilkan semua siswa dalam kelas
+                    data.siswa.forEach(siswa => {
+                        var row = `<tr style="text-align: center;">
+                            <td>${siswa.nama_siswa}</td>
+                            <td><input type="radio" name="status_kehadiran[${siswa.NIS}]" value="Hadir"></td>
+                            <td><input type="radio" name="status_kehadiran[${siswa.NIS}]" value="Izin"></td>
+                            <td><input type="radio" name="status_kehadiran[${siswa.NIS}]" value="Sakit"></td>
+                            <td><input type="radio" name="status_kehadiran[${siswa.NIS}]" value="Alpha"></td>
+                            <td><input type="text" name="alasan_ketidakhadiran[${siswa.NIS}]" class="form-control"></td>
+                        </tr>`;
+                        siswaTableBody.insertAdjacentHTML('beforeend', row);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    });
+</script>
 
 @endsection

@@ -56,6 +56,9 @@
 @yield('content')
 
 @yield('content2')
+
+<!-- Include section scripts -->
+@yield('scripts')
     
  <!-- ======= Footer ======= -->
  @include('admin/layouts.footer')

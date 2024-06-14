@@ -25,4 +25,9 @@ class Kelas extends Model
     {
         return $this->hasMany(AbsensiSiswa::class, 'id_kelas', 'id_kelas');
     }
+
+    public function mataPelajaran()
+    {
+        return $this->hasMany(MataPelajaran::class, 'id_kelas', 'id_kelas');
+    }
 }

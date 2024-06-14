@@ -22,8 +22,13 @@ class MataPelajaran extends Model
         return $this->hasMany(AbsensiSiswa::class, 'id_mata_pelajaran', 'id_mata_pelajaran');
     }
 
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
+    }
+
     public function admin()
     {
-        return $this->belongsTo(Admin::class, 'id_admin', 'id_admin');
+        return $this->belongsTo(User::class, 'id_admin', 'id_admin');
     }
 }

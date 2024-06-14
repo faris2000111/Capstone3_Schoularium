@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\admin\AdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\DashboardController;
 use illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +9,8 @@ use App\Http\Controllers\admin\SiswaController;
 use App\Http\Controllers\ProductController;
 use app\Http\Middleware\LogRequest;
 use App\Http\Controllers\admin\absensi\AbsensiController;
+use App\Http\Controllers\admin\absensi\AbsensiSiswaController;
+use App\Http\Controllers\SiswaAuthController;
 
 
 // try {
@@ -32,9 +33,17 @@ use App\Http\Controllers\admin\absensi\AbsensiController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::resource('dashboard', DashboardController::class)
+Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::class)
     ->only(['index'])
     ->middleware(['auth', 'verified']);
+
+Route::get('/siswa/login', [SiswaAuthController::class, 'showLoginForm'])->name('siswa.login');
+Route::post('/siswa/login', [SiswaAuthController::class, 'login']);
+
+
+Route::resource('/dashboard/siswa', App\Http\Controllers\siswa\DashboardController::class)
+    ->only(['index'])
+    ->middleware(['siswa']);
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -54,6 +63,7 @@ Route::middleware(['guru'])->group(function () {
     Route::resource('absensi', App\Http\Controllers\admin\absensi\AbsensiController::class);
     Route::resource('absensi-siswa', App\Http\Controllers\admin\absensi\AbsensiSiswaController::class);
     Route::resource('absensi-guru', App\Http\Controllers\admin\absensi\AbsensiGuruController::class);
+    Route::resource('data-absensi', App\Http\Controllers\admin\absensi\DataAbsensiController::class);
 });
 Route::middleware(['guru'])->group(function () {
     Route::resource('absensi', AbsensiController::class);
@@ -68,3 +78,5 @@ Route::get('/tambahDataSiswa', function(){
 );
 // Route::resource('siswa', SiswaController::class)->parameters(['siswa' => 'NIS']);
 Route::resource('siswa', SiswaController::class);
+Route::get('/check-absensi/{id_mata_pelajaran}/{id_kelas}/{tanggal}/{id_admin}', [AbsensiSiswaController::class, 'checkAbsensi']);
+Route::get('/siswa-by-kelas/{id_kelas}', [AbsensiSiswaController::class, 'getSiswaByKelas'])->name('siswa.by.kelas');

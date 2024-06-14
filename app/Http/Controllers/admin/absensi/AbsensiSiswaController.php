@@ -16,32 +16,57 @@ class AbsensiSiswaController extends Controller
 {
     public function index()
     {
-        // Ambil data admin yang sedang login
         $admin = Auth::user();
-        $kelas = Kelas::all(); 
+        $kelas = Kelas::all();
 
-        // Ambil data siswa dan mata pelajaran yang diajarkan oleh admin
-        $siswa = DB::table('siswa')
-            ->join('kelas', 'siswa.id_kelas', '=', 'kelas.id_kelas')
-            ->select('siswa.*', 'kelas.*')
+        // Ambil mata pelajaran yang diajar oleh admin yang sedang login
+        $mata_pelajaran = MataPelajaran::where('id_admin', $admin->id_admin)->get();
+
+        if ($mata_pelajaran->isEmpty()) {
+            return redirect()->back()->with('error', 'Admin tidak memiliki mata pelajaran.');
+        }
+
+        return view('admin/absensi.absensi-siswa', compact('mata_pelajaran', 'kelas'));
+    }
+
+    public function checkAbsensi($id_mata_pelajaran, $id_kelas, $tanggal, $id_admin)
+    {
+        $absensiDone = AbsensiSiswa::where('tanggal', $tanggal)
+            ->where('id_mata_pelajaran', $id_mata_pelajaran)
+            ->where('id_admin', $id_admin)
+            ->exists();
+
+        // Ambil data siswa yang ada di kelas yang dipilih
+        $siswa = Siswa::where('id_kelas', $id_kelas)->get();
+
+        // Ambil data absensi siswa untuk hari ini
+        $absensi = AbsensiSiswa::where('tanggal', $tanggal)
+            ->where('id_kelas', $id_kelas)
+            ->where('id_mata_pelajaran', $id_mata_pelajaran)
+            ->where('id_admin', $id_admin)
             ->get();
-        
-        $mata_pelajaran = DB::table('mata_pelajaran')
-            ->join('admin', 'mata_pelajaran.id_admin', '=', 'admin.id_admin')
-            ->select('mata_pelajaran.*', 'admin.nama')
-            ->where('admin.id_admin', $admin->id_admin)
-            ->get();
 
-        // Ambil data absensi siswa pada hari ini
-        $todayDate = Carbon::now()->toDateString();
-        $absensiHariIni = AbsensiSiswa::where('tanggal', $todayDate)->pluck('NIS');
+        // Gabungkan data siswa dengan absensi
+        $siswaSudahAbsen = [];
+        foreach ($siswa as $s) {
+            $absensiSiswa = $absensi->firstWhere('NIS', $s->NIS);
+            if ($absensiSiswa) {
+                $s->absensi = $absensiSiswa;
+                $siswaSudahAbsen[] = [
+                    'NIS' => $s->NIS,
+                    'status_kehadiran' => $absensiSiswa->status_kehadiran,
+                    'alasan_ketidakhadiran' => $absensiSiswa->alasan_ketidakhadiran,
+                ];
+            } else {
+                $s->absensi = null;
+            }
+        }
 
-        // Filter siswa yang belum absen hari ini
-        $siswaBelumAbsen = $siswa->filter(function ($siswa) use ($absensiHariIni) {
-            return !$absensiHariIni->contains($siswa->NIS);
-        });
-
-        return view('admin/absensi.absensi-siswa', compact('siswaBelumAbsen', 'mata_pelajaran', 'siswa', 'kelas'));
+        return response()->json([
+            'siswa' => $siswa,
+            'absensiDone' => $absensiDone,
+            'siswaSudahAbsen' => $siswaSudahAbsen,
+        ]);
     }
 
     public function store(Request $request)
@@ -50,6 +75,11 @@ class AbsensiSiswaController extends Controller
         $todayDate = date('Y-m-d');
         $id_kelas = $request->input('id_kelas');
         $id_mata_pelajaran = $request->input('id_mata_pelajaran');
+
+        // Periksa apakah ada input status kehadiran
+        if (!$request->has('status_kehadiran') || empty($request->input('status_kehadiran'))) {
+            return redirect()->back()->with('error', 'Mohon isi status kehadiran untuk setiap siswa.');
+        }
 
         // Loop melalui semua siswa dan simpan status kehadiran mereka
         foreach ($request->input('status_kehadiran') as $NIS => $status_kehadiran) {
@@ -61,22 +91,26 @@ class AbsensiSiswaController extends Controller
             }
 
             // Validasi jumlah kata pada alasan ketidakhadiran
-            if ($status_kehadiran != 'Hadir' && str_word_count($alasan_ketidakhadiran) < 10) {
-                return redirect()->back()->with('error', 'Alasan ketidakhadiran harus memiliki minimal 10 kata.');
+            if (($status_kehadiran != 'Hadir' && $status_kehadiran != 'Alpha') && str_word_count($alasan_ketidakhadiran) < 5) {
+                return redirect()->back()->with('error', 'Alasan ketidakhadiran harus memiliki minimal 5 kata.');
             }
 
-            AbsensiSiswa::create([
-                'NIS' => $NIS,
-                'id_kelas' => $id_kelas,
-                'id_mata_pelajaran' => $id_mata_pelajaran,
-                'tanggal' => $todayDate,
-                'status_kehadiran' => $status_kehadiran,
-                'alasan_ketidakhadiran' => $status_kehadiran == 'Hadir' ? null : $alasan_ketidakhadiran,
-                'id_admin' => $id_admin,
-            ]);
+            // Simpan atau update absensi siswa
+            AbsensiSiswa::updateOrCreate(
+                [
+                    'NIS' => $NIS,
+                    'id_kelas' => $id_kelas,
+                    'id_mata_pelajaran' => $id_mata_pelajaran,
+                    'tanggal' => $todayDate,
+                    'id_admin' => $id_admin,
+                ],
+                [
+                    'status_kehadiran' => $status_kehadiran,
+                    'alasan_ketidakhadiran' => $status_kehadiran == 'Hadir' ? null : $alasan_ketidakhadiran,
+                ]
+            );
         }
 
         return redirect()->route('absensi.index')->with('success', 'Absensi berhasil disimpan.');
     }
-
 }
