@@ -23,9 +23,6 @@ class SiswaController extends Controller
         $ekstrakurikuler = ekstrakurikuler::all();
         return view('admin/siswa.index',compact('siswa','ekstrakurikuler'));
 
-        $siswa = Siswa::latest()->paginate(5);
-        return view('admin.siswa.index', compact('siswa'))->with('i', (request()->input('page', 1) - 1) * 5);
-
     }
 
     public function create()
