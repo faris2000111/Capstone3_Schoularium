@@ -23,7 +23,7 @@ use App\Http\Controllers\SiswaAuthController;
 use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
 use App\Http\Controllers\RedirectResponse;
 use App\Http\Controllers\MataPelajaranController;
->>>>>>> Stashed changes
+
 
 
 // try {
