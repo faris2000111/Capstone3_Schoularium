@@ -9,6 +9,8 @@
       <span>Dashboard</span>
     </a>
   </li><!-- End Dashboard Nav -->
+  
+
 
   <li class="nav-item">
     <a class="nav-link {{ request()->routeIs('daftar-guru.*','absensi.*','absensi-guru.*','absensi-siswa.*') ? '' : 'collapsed' }}" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
@@ -30,6 +32,12 @@
           <i class="bi bi-circle"></i><span>Jadwal Guru</span>
         </a>
       </li>
+      <li>
+        <a href="{{ route('mata_pelajaran.index') }}" class="nav-link {{ request()->routeIs('MataPelajaran.*') ? '' : 'collapsed' }}">
+          <i class="bi bi-circle"></i><span>Mata Pelajaran</span>
+        </a>
+      </li>
+    
 
     </ul>
   </li><!-- End Forms guru Nav -->

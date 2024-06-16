@@ -14,6 +14,7 @@ class MataPelajaran extends Model
 
     protected $fillable = [
         'nama_pelajaran',
+<<<<<<< Updated upstream
         'id_admin'
     ];
 
@@ -32,3 +33,8 @@ class MataPelajaran extends Model
         return $this->belongsTo(User::class, 'id_admin', 'id_admin');
     }
 }
+=======
+        'id_admin',
+    ];
+}
+>>>>>>> Stashed changes

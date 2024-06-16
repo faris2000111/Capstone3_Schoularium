@@ -16,8 +16,14 @@ use App\Http\Controllers\admin\SiswaController;
 use App\Http\Controllers\ProductController;
 use app\Http\Middleware\LogRequest;
 use App\Http\Controllers\admin\absensi\AbsensiController;
+<<<<<<< Updated upstream
 use App\Http\Controllers\admin\absensi\AbsensiSiswaController;
 use App\Http\Controllers\SiswaAuthController;
+=======
+use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
+use App\Http\Controllers\RedirectResponse;
+use App\Http\Controllers\MataPelajaranController;
+>>>>>>> Stashed changes
 
 
 // try {
@@ -59,8 +65,15 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+<<<<<<< Updated upstream
 // Route::post('/login', [CustomAuthenticatedSessionController::class, 'store'])->name('login');
 Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
+=======
+
+Route::post('/login', [CustomAuthenticatedSessionController::class, 'store'])->name('login');
+//Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+>>>>>>> Stashed changes
 
 // Route::middleware(['auth', 'role:admin'])->group(function () {
 //     Route::get('/dashboard', function () {
@@ -73,7 +86,7 @@ Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])-
 //         return view('siswa.dashboard');
 //     })->name('siswa.dashboard');
 // });
-
+//Route::resource('mata_pelajaran', MataPelajaranController::class)->middleware(['auth', 'can:manage-mata-pelajaran']);
 
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('auth', 'verified');
 
@@ -96,8 +109,14 @@ Route::middleware(['guru'])->group(function () {
 });
 
 Route::resource('absensi-guru', App\Http\Controllers\admin\absensi\AbsensiGuruController::class);
+<<<<<<< Updated upstream
  
 
+=======
+//Route::put('mata_pelajaran/{id}', 'MataPelajaranController@update')->name('mata_pelajaran.update');
+//Route::put('/mata_pelajaran/{id}', [MataPelajaranController::class, 'update'])->name('mata_pelajaran.update');
+Route::resource('mata_pelajaran', App\Http\Controllers\MataPelajaranController::class);
+>>>>>>> Stashed changes
 // Route::get('/siswa', [siswaController::class, 'index']);
 Route::get('/tambahDataSiswa', function(){
     return view('siswa.tambahsiswa');
