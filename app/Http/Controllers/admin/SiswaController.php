@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 
 use App\Models\siswa;
-use App\Models\kelas;
+use App\Models\Kelas;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -28,7 +28,7 @@ class SiswaController extends Controller
     public function create()
     {
 
-        $kelas = kelas::all();
+        $kelas = Kelas::all();
         $ekstrakurikuler = ekstrakurikuler::all();
         return view('admin/siswa.create', compact('kelas', 'ekstrakurikuler'));
 
