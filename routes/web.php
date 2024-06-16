@@ -95,6 +95,7 @@ Auth::routes();
 // Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::class);
 
 Route::middleware(['admin'])->group(function () {
+    Route::resource('jadwal-admin', JadwalController::class);
     Route::resource('daftar-guru', AdminController::class);
 });
 
