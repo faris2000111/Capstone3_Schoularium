@@ -11,13 +11,18 @@ use App\Http\Controllers\admin\GuruController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\KelasController;
 use App\Http\Controllers\admin\SiswaController;
-use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\absensi\AbsensiController;
 use App\Http\Controllers\admin\EkstrakurikulerController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\admin\absensi\AbsensiSiswaController;
 use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
+
+use App\Http\Controllers\admin\absensi\AbsensiSiswaController;
+use App\Http\Controllers\SiswaAuthController;
+
+// use App\Http\Controllers\RedirectResponse;
+use App\Http\Controllers\MataPelajaranController;
+
 
 
 // try {
@@ -60,8 +65,13 @@ Route::get('/', function () {
 });
 
 
+// Route::post('/login', [CustomAuthenticatedSessionController::class, 'store'])->name('login');
+Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
 Route::post('/login', [CustomAuthenticatedSessionController::class, 'store'])->name('login');
 //Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
+
 
 
 // Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -98,9 +108,13 @@ Route::middleware(['guru'])->group(function () {
 });
 
 Route::resource('absensi-guru', App\Http\Controllers\admin\absensi\AbsensiGuruController::class);
+
+ 
+
 //Route::put('mata_pelajaran/{id}', 'MataPelajaranController@update')->name('mata_pelajaran.update');
 //Route::put('/mata_pelajaran/{id}', [MataPelajaranController::class, 'update'])->name('mata_pelajaran.update');
 Route::resource('mata_pelajaran', App\Http\Controllers\MataPelajaranController::class);
+
 // Route::get('/siswa', [siswaController::class, 'index']);
 Route::get('/tambahDataSiswa', function(){
     return view('siswa.tambahsiswa');
