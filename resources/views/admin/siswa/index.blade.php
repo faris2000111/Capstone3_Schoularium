@@ -50,7 +50,7 @@
                         </td>
                         <td>
 
-                          <form action="{{ route('Siswa.destroy', $row->id_siswa) }}" method="POST" onsubmit = "return confirm('apakah anda yakin..?')">
+                          <form action="{{ route('siswa.destroy', $row->id_siswa) }}" method="POST" onsubmit = "return confirm('apakah anda yakin..?')">
                             <a class="btn btn-primary" href="{{ route('siswa.edit',$row->id_siswa) }}">Edit</a>
                              @csrf
                              @method('DELETE')
