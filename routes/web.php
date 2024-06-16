@@ -128,7 +128,7 @@ Route::get('/tambahDataSiswa', function(){
 Route::resource('jadwal-siswa', JadwalSiswaController::class);
 // Route::get('/tambahJadwal', [JadwalController::class, 'create']);
 // Route::resource('siswa', SiswaController::class)->parameters(['siswa' => 'NIS']);
-// Route::resource('siswa', SiswaController::class);
+Route::resource('siswa', SiswaController::class);
 Route::resource('ekstrakurikuler', EkstrakurikulerController::class);
 
 
