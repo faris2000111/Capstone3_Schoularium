@@ -171,7 +171,7 @@ class SiswaController extends Controller
 
 
         //redirect to index
-        return redirect()->route('siswa.index')->with('success', 'Data Berhasil Dihapus!');
+        // return redirect()->route('siswa.index')->with('success', 'Data Berhasil Dihapus!');
 
         return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil dihapus');
 
