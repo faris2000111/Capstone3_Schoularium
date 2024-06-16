@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function index()
     {
         // Mengambil jumlah kelas dari tabel kelas
-        $jumlahKelas = Kelas::count();
+        $jumlahKelas = kelas::count();
 
         // Mengambil pengguna yang sedang login
         $user = Auth::user();
