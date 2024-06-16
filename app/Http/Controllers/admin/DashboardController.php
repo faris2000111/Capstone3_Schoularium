@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\User;
-use App\Models\kelas;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function index()
     {
         // Mengambil jumlah kelas dari tabel kelas
-        $jumlahKelas = kelas::count();
+        $jumlahKelas = Kelas::count();
 
         // Mengambil pengguna yang sedang login
         $user = Auth::user();
