@@ -28,7 +28,7 @@
               @csrf
               @method('PUT')
               @if($siswa->foto)
-              
+
               <div class="col-md-12">
                 <img src="{{url('foto_siswa').'/'.$siswa->foto}}" alt="" height="100px" class="">
               </div>
@@ -38,7 +38,7 @@
                 <label for="NIS" class="form-label">NIS</label>
                 <input type="text" class="form-control" id="NIS" placeholder="Masukkan NIS Siswa" name="NIS" value="{{ $siswa->NIS }}">
               </div>
-              
+
               <div class="col-md-6">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" placeholder="Masukkan Email Siswa" name="email" value="{{ $siswa->email }}">
@@ -51,13 +51,28 @@
                 <label for="nama_siswa" class="form-label">Nama Lengkap</label>
                 <input type="text" class="form-control" id="nama_siswa" placeholder="Masukkan Nama Lengkap Siswa" name="nama_siswa" value="{{ $siswa->nama_siswa }}">
               </div>
+              <div class="mb-3">
+                <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+                    <option value="L" {{ $siswa->jenis_kelamin == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                    <option value="P" {{ $siswa->jenis_kelamin == 'P' ? 'selected' : '' }}>Perempuan</option>
+                </select>
+            </div>
               <div class="col-12">
-                <label for="kelas" class="form-label">Kelas</label>
-                <input type="text" class="form-control" id="kelas" placeholder="Masukkan Kelas Siswa" name="kelas" value="{{ $siswa->kelas }}">
+                <label for="id_kelas" class="form-label">Kelas</label>
+                <select class="form-control" id="id_kelas" name="id_kelas" required>
+                    @foreach ($kelas as $row)
+                    <option value="{{ $row->id_kelas }}">{{ $row->nama_kelas }}</option>
+                    @endforeach
+                </select>
               </div>
               <div class="col-md-12">
-                <label for="ekstrakurikuler" class="form-label">Ekstrakurikuler</label>
-                <input type="text" class="form-control" id="ekstrakurikuler" placeholder="Masukkan ekstrakurikuler yang diikuti Siswa" name="ekstrakurikuler" value="{{ $siswa->ekstrakurikuler }}">
+                <label for="id_ekstrakurikuler" class="form-label">Ekstrakurikuler</label>
+                <select class="form-control" id="id_ekstrakurikuler" name="id_ekstrakurikuler" required>
+                    @foreach ($ekstrakurikuler as $row)
+                    <option value="{{ $row->id_ekstrakurikuler }}">{{ $row->nama_ekstrakurikuler }}</option>
+                    @endforeach
+                </select>
               </div>
               <div class="col-md-12">
                 <label for="foto" class="col-sm-2 col-form-label">File Upload</label>

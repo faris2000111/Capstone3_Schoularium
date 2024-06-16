@@ -16,7 +16,7 @@
     {{ $message }}
   </div>
   @endif
-  
+
     <div class="pagetitle">
         <h1>Data Guru</h1>
         <nav>
@@ -35,7 +35,7 @@
 
                     <div class="card-body">
 
-                        
+
 
                         <form class="row g-3 needs-validation" action="{{ route('daftar-guru.store') }}" method="POST" enctype="multipart/form-data" novalidate>
                             @csrf
@@ -91,15 +91,9 @@
                             </div>
 
                             <div class="col-12">
-                                <label for="mata_pelajaran" class="form-label">Mata Pelajaran</label>
-                                <input type="text" name="mata_pelajaran" class="form-control" id="mata_pelajaran" required>
+                                <label for="id_mata_pelajaran" class="form-label">Mata Pelajaran</label>
+                                <input type="text" name="id_mata_pelajaran" class="form-control" id="id_mata_pelajaran" required>
                                 <div class="invalid-feedback">Please, enter your subject!</div>
-                            </div>
-
-                            <div class="col-12">
-                                <label for="tingkat_pendidikan" class="form-label">Tingkat Pendidikan</label>
-                                <input type="text" name="tingkat_pendidikan" class="form-control" id="tingkat_pendidikan" required>
-                                <div class="invalid-feedback">Please, enter your education level!</div>
                             </div>
 
                             <div class="col-12">

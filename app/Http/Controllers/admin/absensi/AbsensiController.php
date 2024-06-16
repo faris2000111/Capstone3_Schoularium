@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin\absensi;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Absensi;
+use App\Models\Kelas;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -17,6 +18,9 @@ class AbsensiController extends Controller
     {
         $user = Auth::user();
         $absens = Admin::all();
-        return view('admin/absensi.absensi', compact('absens','user'));
+
+        $jmlh_kls = Kelas::count();
+        
+        return view('admin/absensi.absensi', compact('absens','user','jmlh_kls'));
     }
 }

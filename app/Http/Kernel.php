@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        //'can' => \Illuminate\Auth\Middleware\Authorize::class,
     ];
 
     /**
@@ -70,7 +71,11 @@ class Kernel extends HttpKernel
         'staff' => \App\Http\Middleware\StaffOnly::class,
     ];
     protected $routeMiddleware = [
+        //'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'log.requests' => \App\Http\Middleware\LogRequests::class,
         'role' => \App\Http\Middleware\EnsureUserRole::class,
+       //halaman mata pelajaran
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
     ];
 }

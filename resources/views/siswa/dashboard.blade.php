@@ -1,140 +1,135 @@
 @extends('admin/layouts.template')
 
+@section('title', 'Dashboard - Schoularium')
+
 @section('content')
 
-<main id="main" class="main">
+    <main id="main" class="main">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success" role="alert">
+                {{ $message }}
+            </div>
+        @endif
 
-    <div class="pagetitle">
-      <h1>Dashboard Siswa</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+        @endif
 
-    <section class="section dashboard">
-      <div class="row">
+        <div class="pagetitle mb-3">
+            <h1>Selamat Datang, {{ $user->name }}</h1>
+        </div>
 
-        <!-- Left side columns -->
-        <div class="col-lg">
-          <div class="row">
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
+        <div class="pagetitle">
+            <h1>Dashboard Admin</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
+        <section class="section dashboard">
+            <div class="row">
 
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
+                <!-- Left side columns -->
+                <div class="col-lg">
+                    <div class="row">
 
-                <div class="card-body">
-                  <h5 class="card-title">Sales <span>| Today</span></h5>
+                        <!-- Sales Card -->
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card sales-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Jumlah Siswa <span></span></h5>
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i><img src="{{ asset('assets/foto_dashboard/siswa.png') }}" alt="School Logo"
+                                                    width="50px"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ $siswa }} Siswa</h6>
+                                            <span class="text-success small pt-1 fw-bold"><a href="{{ route('siswa.index') }}">Lihat Siswa</a></span>
+                                        </div>
+                                    </div>
+                                </div>
 
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-cart"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                            </div>
+                        </div><!-- End Sales Card -->
 
-                    </div>
-                  </div>
-                </div>
+                        <!-- Revenue Card -->
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card revenue-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Jumlah Guru <span></span></h5>
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i><img src="{{ asset('assets/foto_dashboard/guru.png') }}" alt="School Logo"
+                                                    width="50px"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ $guru }} Guru</h6>
+                                            <span class="text-success small pt-1 fw-bold"><a href="{{ route('daftar-guru.index') }}">Lihat Guru</a></span>
+                                        </div>
+                                    </div>
+                                </div>
 
-              </div>
-            </div><!-- End Sales Card -->
+                            </div>
+                        </div><!-- End Revenue Card -->
 
-            <!-- Revenue Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
+                        <!-- Customers Card -->
+                        {{-- <div class="d-flex justify-content-center align-items-center"> --}}
+                            <div class="col-xxl-4 col-md-6">
+                                <div class="card info-card customers-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Jumlah Kelas <span></span></h5>
+                                        <div class="d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i><img src="{{ asset('assets/foto_dashboard/kelas.png') }}"
+                                                        alt="School Logo" width="40px"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                                <h6>{{ $jumlahKelas }} Kelas</h6>
+                                                <span class="text-danger small pt-1 fw-bold"><a href="{{ route('daftar-kelas.index') }}">Lihat Kelas</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- End Customers Card -->
+                        {{-- </div> --}}
 
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card customers-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Mata Pelajaran <span></span></h5>
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i><img src="{{ asset('assets/foto_dashboard/mapel.png') }}"
+                                                    alt="School Logo" width="40px"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ $mata_pelajaran }} Mapel</h6>
+                                            <span class="text-danger small pt-1 fw-bold"><a href="{{ route('mata_pelajaran.index') }}">Lihat Kelas</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
 
-                <div class="card-body">
-                  <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                    </div><!-- End News & Updates -->
 
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                </div><!-- End Right side columns -->
 
-                    </div>
-                  </div>
-                </div>
+            </div>
+        </section>
 
-              </div>
-            </div><!-- End Revenue Card -->
+    </main><!-- End #main -->
 
-            <!-- Customers Card -->
-            <div class="col-xxl-4 col-xl-12">
-
-              <div class="card info-card customers-card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Customers <span>| This Year</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-            </div><!-- End Customers Card -->
-            
-          </div><!-- End News & Updates -->
-
-        </div><!-- End Right side columns -->
-
-      </div>
-    </section>
-
-  </main><!-- End #main -->
-  
-  @endsection
+@endsection

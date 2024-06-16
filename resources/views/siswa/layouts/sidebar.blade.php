@@ -4,37 +4,89 @@
 <ul class="sidebar-nav" id="sidebar-nav">
 
   <li class="nav-item">
-    <a class="nav-link " href="index.html">
+    <a class="nav-link {{ request()->routeIs('dashboard.index') ? '' : 'collapsed' }}" href="{{ route('dashboard.index') }}">
       <i class="bi bi-grid"></i>
       <span>Dashboard</span>
     </a>
   </li><!-- End Dashboard Nav -->
+  
+
 
   <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
+    <a class="nav-link {{ request()->routeIs('daftar-guru.*','absensi.*','absensi-guru.*','absensi-siswa.*') ? '' : 'collapsed' }}" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-journal-text"></i><span>Data Guru</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
-    <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+    <ul id="forms-nav" class="nav-content collapse {{ request()->routeIs('daftar-guru.*','absensi.*','absensi-guru.*','absensi-siswa.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
       <li>
-        <a href="forms-elements.html">
-          <i class="bi bi-circle"></i><span>Form Elements</span>
+        <a href="{{ route('daftar-guru.index') }}" class="nav-link {{ request()->routeIs('daftar-guru.*') ? '' : 'collapsed' }}">
+          <i class="bi bi-circle"></i><span>Data Guru</span>
         </a>
       </li>
       <li>
-        <a href="forms-layouts.html">
-          <i class="bi bi-circle"></i><span>Form Layouts</span>
+        <a href="{{ route('absensi.index') }}" class="nav-link {{ request()->routeIs('absensi.*','absensi-guru.*','absensi-siswa.*') ? '' : 'collapsed' }}">
+          <i class="bi bi-circle"></i><span>Absensi</span>
         </a>
       </li>
       <li>
-        <a href="forms-editors.html">
-          <i class="bi bi-circle"></i><span>Form Editors</span>
+        @if(auth()->user()->jabatan === 'admin')
+        <a href="{{ route('jadwal-admin.index') }}" class="nav-link {{ request()->routeIs('jadwal-admin.*') ? '' : 'collapsed' }}">
+            <i class="bi bi-circle"></i><span>Jadwal Guru</span>
+        </a>
+        @elseif(auth()->user()->jabatan === 'guru')
+        <a href="{{ route('jadwal-guru.show') }}" class="nav-link {{ request()->routeIs('jadwal-guru.*') ? '' : 'collapsed' }}">
+            <i class="bi bi-circle"></i><span>Jadwal Guru</span>
+        </a>
+        @endif
+      </li>
+      <li>
+        <a href="{{ route('mata_pelajaran.index') }}" class="nav-link {{ request()->routeIs('MataPelajaran.*') ? '' : 'collapsed' }}">
+          <i class="bi bi-circle"></i><span>Mata Pelajaran</span>
+        </a>
+      </li>
+    
+
+    </ul>
+  </li><!-- End Forms guru Nav -->
+
+  <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('siswa.*') ? '' : 'collapsed' }}" data-bs-target="#forms-siswaCrud-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Data Siswa</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-siswaCrud-nav" class="nav-content collapse {{ request()->routeIs('siswa.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+
+          <li>
+            <a href="/siswa" class="nav-link {{ request()->routeIs('siswa.*') ? '' : 'collapsed' }}">
+              <i class="bi bi-circle"></i><span>Data Siswa</span>
+            </a>
+          </li>
+          <li>
+            <a href="/ekstrakurikuler" class="nav-link {{ request()->routeIs('ekstrakurikuler.*') ? '' : 'collapsed' }}">
+              <i class="bi bi-circle"></i><span>ekstrakurikuler</span>
+            </a>
+          </li>
+        </ul>
+    </li><!-- End Forms Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('daftar-kelas.index') ? '' : 'collapsed' }}" data-bs-target="#forms-kelas" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-journal-text"></i><span>Data Kelas</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="forms-kelas" class="nav-content collapse {{ request()->routeIs('daftar-kelas.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+      <li>
+        <a href="{{ route('daftar-kelas.index') }}" class="nav-link {{ request()->routeIs('daftar-kelas.index') ? '' : 'collapsed' }}">
+          <i class="bi bi-circle"></i><span>Daftar Kelas</span>
+        </a>
+      </li>
+      {{-- <li>
+        <a href="{{ route('daftar-kelas.index') }}" class="nav-link {{ request()->routeIs('daftar-kelas.index') ? '' : 'collapsed' }}">
+          <i class="bi bi-circle"></i><span>Kelas 2</span>
         </a>
       </li>
       <li>
-        <a href="forms-validation.html">
-          <i class="bi bi-circle"></i><span>Form Validation</span>
+        <a href="{{ route('daftar-kelas.index') }}" class="nav-link {{ request()->routeIs('daftar-kelas.index') ? '' : 'collapsed' }}">
+          <i class="bi bi-circle"></i><span>Kelas 3</span>
         </a>
-      </li>
+      </li> --}}
     </ul>
   </li><!-- End Forms Nav -->
 
