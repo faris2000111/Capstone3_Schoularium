@@ -18,6 +18,9 @@ class DashboardController extends Controller
             } else if ($usertype == 'admin') {
                 return view('admin.dashboard');
             }
+            else if ($usertype == 'guru') {
+                return view('admin.dashboard');
+            }
         }
     }
 }

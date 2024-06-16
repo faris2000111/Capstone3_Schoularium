@@ -9,7 +9,7 @@ class GuruOnly
 {
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && (Auth::user()->jabatan === 'Admin' || Auth::user()->jabatan === 'Guru')) {
+        if (Auth::check() && (Auth::user()->jabatan === 'admin' || Auth::user()->jabatan === 'guru')) {
             return $next($request);
         }        
 

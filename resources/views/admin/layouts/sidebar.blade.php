@@ -26,9 +26,15 @@
         </a>
       </li>
       <li>
-        <a href="forms-editors.html">
-          <i class="bi bi-circle"></i><span>Jadwal Guru</span>
+        @if(auth()->user()->jabatan === 'admin')
+        <a href="{{ route('jadwal-admin.index') }}" class="nav-link {{ request()->routeIs('jadwal-admin.*') ? '' : 'collapsed' }}">
+            <i class="bi bi-circle"></i><span>Jadwal Guru</span>
         </a>
+        @elseif(auth()->user()->jabatan === 'guru')
+        <a href="{{ route('jadwal-guru.show') }}" class="nav-link {{ request()->routeIs('jadwal-guru.*') ? '' : 'collapsed' }}">
+            <i class="bi bi-circle"></i><span>Jadwal Guru</span>
+        </a>
+        @endif
       </li>
       
     </ul>
