@@ -28,7 +28,7 @@ class Siswa extends Model
         'id_ekstrakurikuler'
     ];
     public function kelas(){
-        return $this->hasOne('Kelas::class', 'id_kelas', 'id_kelas');
+        return $this->hasOne(Kelas::class, 'id_kelas', 'id_kelas');
     }
     public function ekstrakurikuler(){
         return $this->hasOne('App\models\ekstrakurikuler', 'id_ekstrakurikuler', 'id_ekstrakurikuler');
