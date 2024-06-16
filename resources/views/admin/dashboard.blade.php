@@ -114,7 +114,7 @@
                                                     alt="School Logo" width="40px"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ $jumlahKelas }} Mapel</h6>
+                                            <h6>{{ $mata_pelajaran }} Mapel</h6>
                                             <span class="text-danger small pt-1 fw-bold"><a href="{{ route('mata_pelajaran.index') }}">Lihat Kelas</a></span>
                                         </div>
                                     </div>

@@ -7,6 +7,7 @@ use App\Models\Kelas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\MataPelajaran;
 use App\Models\Siswa;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +27,10 @@ class DashboardController extends Controller
         //Mengambil jumlah siswa dari tabel admin
         $guru = Admin::count();
 
-        return view('admin.dashboard', compact('jumlahKelas', 'user', 'siswa', 'guru'));
+        //Mengambil jumlah mapel dari tabel mapel
+        $mata_pelajaran = MataPelajaran::count();
+
+        return view('admin.dashboard', compact('jumlahKelas', 'user', 'siswa', 'guru', 'mata_pelajaran'));
     }
 
 }
