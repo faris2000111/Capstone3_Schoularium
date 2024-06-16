@@ -14,27 +14,6 @@ class MataPelajaran extends Model
 
     protected $fillable = [
         'nama_pelajaran',
-<<<<<<< Updated upstream
-        'id_admin'
-    ];
-
-    public function absensi()
-    {
-        return $this->hasMany(AbsensiSiswa::class, 'id_mata_pelajaran', 'id_mata_pelajaran');
-    }
-
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
-    }
-
-    public function admin()
-    {
-        return $this->belongsTo(User::class, 'id_admin', 'id_admin');
-    }
-}
-=======
         'id_admin',
     ];
 }
->>>>>>> Stashed changes

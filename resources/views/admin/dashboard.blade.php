@@ -115,7 +115,7 @@
                                         </div>
                                         <div class="ps-3">
                                             <h6>{{ $jumlahKelas }} Mapel</h6>
-                                            <span class="text-danger small pt-1 fw-bold"><a href="{{ route('daftar-kelas.index') }}">Lihat Kelas</a></span>
+                                            <span class="text-danger small pt-1 fw-bold"><a href="{{ route('mata_pelajaran.index') }}">Lihat Kelas</a></span>
                                         </div>
                                     </div>
                                 </div>
