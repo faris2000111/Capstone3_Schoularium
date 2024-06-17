@@ -92,9 +92,9 @@ class SiswaController extends Controller
 
     }
 
-    public function edit($id_siswa)
+    public function edit($NIS)
     {
-        $siswa = Siswa::findOrFail($id_siswa);
+        $siswa = Siswa::findOrFail($NIS);
         $kelas = Kelas::all(); // Mengambil semua data kelas
         return view('admin.siswa.edit', compact('siswa', 'kelas'));
     }
@@ -111,7 +111,7 @@ class SiswaController extends Controller
     //     $ekstrakurikuler = ekstrakurikuler::all();
     //     return view('admin/siswa.edit', compact('siswa', 'kelas','ekstrakurikuler'));
     // }
-    public function update(Request $request, string $id_siswa)
+    public function update(Request $request, string $NIS)
 {
     $request->validate([
         'NIS' => 'required',
@@ -123,8 +123,8 @@ class SiswaController extends Controller
         'id_ekstrakurikuler' => 'required',
     ]);
 
-    // Ambil objek model siswa berdasarkan id_siswa
-    $siswa = siswa::findOrFail($id_siswa);
+    // Ambil objek model siswa berdasarkan NIS
+    $siswa = siswa::findOrFail($NIS);
 
     // Data yang akan diperbarui
     $data = [
@@ -155,15 +155,15 @@ class SiswaController extends Controller
     // public function destroy(siswa $siswa)
     // {
     //     // $siswa->delete();
-    //     siswa::where('id_siswa', $siswa)->delete();
+    //     siswa::where('NIS', $siswa)->delete();
     //     \Log::info('Deleting Siswa:', ['siswa' => $siswa]);
     //     return redirect()->route('siswa.index')->with('success','siswa deleted successfully');
     // }
 
 
-    public function destroy($id_siswa)
+    public function destroy($NIS)
     {
-        $siswa = Siswa::findOrFail($id_siswa);
+        $siswa = Siswa::findOrFail($NIS);
 
         File::delete(public_path('foto_siswa') . '/' . $siswa->foto);
 
