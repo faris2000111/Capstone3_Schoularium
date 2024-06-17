@@ -44,32 +44,19 @@ class SiswaController extends Controller
             'email' => 'required',
             'password' => 'required',
             'nama_siswa' => 'required',
-
             'jenis_kelamin' => 'required',
             'id_kelas' => 'required',
             'id_ekstrakurikuler' => 'required',
             'foto'     => 'mimes:jpeg,jpg,png|max:1024',
-
-            'id_kelas' => 'required', // Menggunakan id_kelas sebagai foreign key
-            'ekstrakurikuler' => 'required',
-            'foto' => 'mimes:jpeg,jpg,png|max:1024',
-
         ]);
-
         $siswa = [
-            'NIS' => $request->NIS,
-            'email' => $request->email,
+            'NIS'   => $request->NIS,
+            'email'   => $request->email,
             'password' => Hash::make($request->password),
-
             'nama_siswa'   => $request->nama_siswa,
             'jenis_kelamin'   => $request->jenis_kelamin,
             'id_kelas'   => $request->id_kelas,
             'id_ekstrakurikuler'   => $request->id_ekstrakurikuler,
-
-            'nama_siswa' => $request->nama_siswa,
-            'id_kelas' => $request->id_kelas, // Menyimpan id_kelas
-            'ekstrakurikuler' => $request->ekstrakurikuler,
-
         ];
 
         if ($request->hasFile('foto')) {
@@ -80,23 +67,18 @@ class SiswaController extends Controller
             $siswa['foto'] = $foto_nama;
         }
 
-
         // siswa::create($request->all());
         siswa::create($siswa);
 
         return redirect()->route('siswa.index')->with('success','siswa created successfully.');
-
-        Siswa::create($siswa);
-
-        return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil ditambahkan');
-
     }
 
     public function edit($NIS)
     {
         $siswa = Siswa::findOrFail($NIS);
         $kelas = Kelas::all(); // Mengambil semua data kelas
-        return view('admin.siswa.edit', compact('siswa', 'kelas'));
+        $ekstrakurikuler = ekstrakurikuler::all(); // Mengambil semua data kelas
+        return view('admin.siswa.edit', compact('siswa', 'kelas', 'ekstrakurikuler'));
     }
 
 
@@ -140,7 +122,7 @@ class SiswaController extends Controller
     // Periksa jika ada file foto yang diunggah
     if ($request->hasFile('foto')) {
 
-    
+
 
 
     // Perbarui data siswa
