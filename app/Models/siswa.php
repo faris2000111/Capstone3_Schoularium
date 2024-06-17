@@ -2,11 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
 class Siswa extends Model
 {
@@ -25,12 +22,13 @@ class Siswa extends Model
         'jenis_kelamin',
         'foto',
         'id_kelas',
-        'id_ekstrakurikuler'
+        'id_ekstrakurikuler',
     ];
-    public function kelas(){
-        return $this->hasOne('App\models\kelas', 'id_kelas', 'id_kelas');
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'id');
     }
-    public function ekstrakurikuler(){
-        return $this->hasOne('App\models\ekstrakurikuler', 'id_ekstrakurikuler', 'id_ekstrakurikuler');
-    }
+
+    // Tambahan relasi dengan kelas dan ekstrakurikuler jika diperlukan
 }

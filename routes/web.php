@@ -43,7 +43,7 @@ use App\Http\Controllers\SiswaAuthController;
 Route::get('/dashboard', [DashboardController::class, 'index'], function() {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard.index');
-Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::class)
+Route::resource('dashboard', App\Http\Controllers\siswa\DashboardController::class)
     ->only(['index'])
     ->middleware(['auth', 'verified']);
 
