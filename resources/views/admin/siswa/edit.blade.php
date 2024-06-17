@@ -24,7 +24,7 @@
           <div class="card-body">
             <h5 class="card-title">Data Siswa</h5>
             <!-- Multi Columns Form -->
-            <form class="row g-3" action="{{ route('siswa.update', $siswa->id_siswa) }}" method="POST" enctype="multipart/form-data">
+            <form class="row g-3" action="{{ route('siswa.update', $siswa->NIS) }}" method="POST" enctype="multipart/form-data">
               @csrf
               @method('PUT')
               @if($siswa->foto)
