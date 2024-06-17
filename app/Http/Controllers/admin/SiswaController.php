@@ -93,7 +93,7 @@ class SiswaController extends Controller
     //     $ekstrakurikuler = ekstrakurikuler::all();
     //     return view('admin/siswa.edit', compact('siswa', 'kelas','ekstrakurikuler'));
     // }
-    public function update(Request $request, string $NIS)
+   public function update(Request $request, string $NIS)
 {
     $request->validate([
         'NIS' => 'required',
@@ -105,7 +105,7 @@ class SiswaController extends Controller
         'id_ekstrakurikuler' => 'required',
     ]);
 
-    // Ambil objek model siswa berdasarkan NIS
+    // Ambil objek model siswa berdasarkan id_siswa
     $siswa = siswa::findOrFail($NIS);
 
     // Data yang akan diperbarui
@@ -121,16 +121,26 @@ class SiswaController extends Controller
 
     // Periksa jika ada file foto yang diunggah
     if ($request->hasFile('foto')) {
+        $request->validate([
+            'foto' => 'mimes:jpeg,jpg,png|max:1024',
+        ]);
+        $foto_file = $request->file('foto');
+        $foto_nama = $foto_file->hashName();
+        $foto_file->move(public_path('foto_siswa'), $foto_nama);
 
+        // Hapus foto lama jika ada
+        File::delete(public_path('foto_siswa') . '/' . $siswa->foto);
 
-
+        // Tambahkan nama file foto baru ke data yang akan diperbarui
+        $data['foto'] = $foto_nama;
+    }
 
     // Perbarui data siswa
     $siswa->update($data);
 
     return redirect()->route('siswa.index')->with('success', 'siswa updated successfully');
 
-}}
+}
 
 
 
