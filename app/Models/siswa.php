@@ -13,7 +13,7 @@ class Siswa extends Model
     use HasFactory;
 
     protected $table = 'siswa';
-    protected $primaryKey = 'id_siswa';
+    protected $primaryKey = 'NIS';
     public $incrementing = false;
     protected $keyType = 'string';
 
