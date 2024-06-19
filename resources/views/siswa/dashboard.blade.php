@@ -36,13 +36,13 @@
                     <div class="card-body">
                         <h5 class="card-title">Informasi Siswa</h5>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>NIS:</strong> {{ $siswa->NIS }}</li>
-                            <li class="list-group-item"><strong>Email:</strong> {{ $siswa->email }}</li>
-                            <li class="list-group-item"><strong>Nama Siswa:</strong> {{ $siswa->nama_siswa }}</li>
+                            <li class="list-group-item"><strong>NIS:</strong> {{ $siswaId->NIS }}</li>
+                            <li class="list-group-item"><strong>Email:</strong> {{ $siswaId->email }}</li>
+                            <li class="list-group-item"><strong>Nama Siswa:</strong> {{ $siswaId->nama_siswa }}</li>
                             <li class="list-group-item"><strong>Jenis Kelamin:</strong> 
-                                @if ($siswa->jenis_kelamin == 'L')
+                                @if ($siswaId->jenis_kelamin == 'L')
                                     Laki-Laki
-                                @elseif ($siswa->jenis_kelamin == 'P')
+                                @elseif ($siswaId->jenis_kelamin == 'P')
                                     Perempuan
                                 @else
                                     Belum Diketahui
@@ -60,7 +60,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Foto Profil</h5>
                         <div style="max-width: 300px; margin: 0 auto;">
-                        @if ($siswa->foto)
+                        @if ($siswaId->foto)
                         <img src="{{ asset('storage/foto/siswa/' . $siswa->foto) }}" class="img-fluid rounded" alt="Foto Profil">
                         </div>
                         @else
