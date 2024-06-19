@@ -69,6 +69,7 @@
               <div class="col-md-12">
                 <label for="id_ekstrakurikuler" class="form-label">Ekstrakurikuler</label>
                 <select class="form-control" id="id_ekstrakurikuler" name="id_ekstrakurikuler" required>
+                    <option value="0">kosong</option>
                     @foreach ($ekstrakurikuler as $row)
                     <option value="{{ $row->id_ekstrakurikuler }}">{{ $row->nama_ekstrakurikuler }}</option>
                     @endforeach
