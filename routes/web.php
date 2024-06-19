@@ -11,7 +11,7 @@ use App\Http\Controllers\admin\GuruController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\KelasController;
 use App\Http\Controllers\admin\SiswaController;
-use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\absensi\AbsensiController;
 use App\Http\Controllers\admin\EkstrakurikulerController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
