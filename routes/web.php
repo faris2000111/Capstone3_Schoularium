@@ -58,9 +58,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'], function() {
 // Route::post('/siswa/login', [SiswaAuthController::class, 'login']);
 
 
-Route::resource('/dashboard/siswa', App\Http\Controllers\siswa\DashboardController::class)
-    ->only(['index'])
-    ->middleware(['siswa']);
+// Route::resource('/dashboard/siswa', App\Http\Controllers\siswa\DashboardController::class)
+//     ->only(['index'])
+//     ->middleware(['siswa']);
 
 Route::get('/', function () {
     return redirect()->route('login');
