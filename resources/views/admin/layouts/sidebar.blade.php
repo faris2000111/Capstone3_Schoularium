@@ -90,15 +90,6 @@
     </ul>
   </li><!-- End Forms Nav -->
 
-  <li class="nav-heading">Pages</li>
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="users-profile.html">
-      <i class="bi bi-person"></i>
-      <span>Profile</span>
-    </a>
-  </li><!-- End Profile Page Nav -->
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('logout') }}" onclick="return confirm('Apakah anda yakin ingin keluar?')">
           <i class="fa-solid fa-right-from-bracket"></i>
