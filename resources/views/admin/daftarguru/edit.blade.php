@@ -9,13 +9,13 @@
   <div class="alert alert-success" role="alert">
     {{ $message }}
   </div>
-  @endif
+@endif
 
-  @if ($message = Session::get('error'))
+@if ($message = Session::get('error'))
   <div class="alert alert-danger" role="alert">
     {{ $message }}
   </div>
-  @endif
+@endif
 
     <div class="pagetitle">
         <h1>Edit Data Guru</h1>
@@ -75,27 +75,35 @@
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" name="password">
+                                <small class="form-text text-muted">Kosongkan jika tidak ingin mengubah password</small>
                             </div>
 
                             <div class="mb-3">
-                                <label for="mata_pelajaran" class="form-label">Mata Pelajaran</label>
-                                <input type="text" class="form-control" id="mata_pelajaran" name="mata_pelajaran" value="{{ $admin->mata_pelajaran }}">
+                                <label for="id_mata_pelajaran" class="form-label">Mata Pelajaran</label>
+                                <select class="form-select" id="id_mata_pelajaran" name="id_mata_pelajaran" required>
+                                    @foreach($mapel as $mataPelajaran)
+                                        <option value="{{ $mataPelajaran->id_mata_pelajaran }}" {{ $admin->id_mata_pelajaran == $mataPelajaran->id_mata_pelajaran ? 'selected' : '' }}>
+                                            {{ $mataPelajaran->nama_pelajaran }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="mb-3">
                                 <label for="foto" class="form-label">Foto</label>
                                 <input type="file" class="form-control" id="foto" name="foto">
+                                @if($admin->foto)
+                                    <img src="{{ asset('storage/foto/guru/' . $admin->foto) }}" alt="Foto Guru" class="img-thumbnail mt-2" width="150">
+                                @endif
                             </div>
 
-                            <div class="col-12">
+                            <div class="mb-3">
                                 <label for="jabatan" class="form-label">Jabatan</label>
-                                <select class="form-control" id="jabatan" name="jabatan" required>
-                                <option value="Guru" {{ $admin->jabatan == 'Guru' ? 'selected' : '' }}>Guru</option>
+                                <select class="form-select" id="jabatan" name="jabatan" required>
+                                    <option value="Guru" {{ $admin->jabatan == 'Guru' ? 'selected' : '' }}>Guru</option>
                                     <option value="Staff" {{ $admin->jabatan == 'Staff' ? 'selected' : '' }}>Staff</option>
                                 </select>
                             </div>
-
-                            <!-- Tambahkan field lainnya sesuai kebutuhan -->
 
                             <button type="submit" class="btn btn-primary">Ubah</button>
                         </form>

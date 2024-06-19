@@ -73,7 +73,7 @@
                             </div>
 
                             <div class="col-12">
-                                <label for="email" class="form-label">Your Email</label>
+                                <label for="email" class="form-label">Email</label>
                                 <input type="email" name="email" class="form-control" id="email" required>
                                 <div class="invalid-feedback">Please enter a valid Email address!</div>
                             </div>
@@ -90,10 +90,15 @@
                                 <div class="invalid-feedback">Please confirm your password!</div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-12 mt-3">
                                 <label for="id_mata_pelajaran" class="form-label">Mata Pelajaran</label>
-                                <input type="text" name="id_mata_pelajaran" class="form-control" id="id_mata_pelajaran" required>
-                                <div class="invalid-feedback">Please, enter your subject!</div>
+                                <select name="id_mata_pelajaran" class="form-control" id="id_mata_pelajaran" required>
+                                    <option value="">Pilih Mata Pelajaran</option>
+                                    @foreach($mapel as $mapels)
+                                        <option value="{{ $mapels->id_mata_pelajaran }}">{{ $mapels->nama_pelajaran }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">Please, select a class guardian!</div>
                             </div>
 
                             <div class="col-12">
