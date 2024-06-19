@@ -1,4 +1,4 @@
-@extends('admin.layouts.template')
+@extends('siswa.layouts.template')
 
 @section('title', 'Jadwal - Schoularium')
 
