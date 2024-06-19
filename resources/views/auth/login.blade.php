@@ -80,9 +80,6 @@
                     </div>
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">{{ __('Login') }}</button>
-                      @if (Route::has('password.request'))
-                        <a class="btn btn-link" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
-                      @endif
                     </div>
                     <div class="col-12">
                     </div>

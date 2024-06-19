@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 
 use App\Models\siswa;
-use App\Models\kelas;
+use App\Models\Kelas;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -23,20 +23,15 @@ class SiswaController extends Controller
         $ekstrakurikuler = ekstrakurikuler::all();
         return view('admin/siswa.index',compact('siswa','ekstrakurikuler'));
 
-        $siswa = Siswa::latest()->paginate(5);
-        return view('admin.siswa.index', compact('siswa'))->with('i', (request()->input('page', 1) - 1) * 5);
-
     }
 
     public function create()
     {
 
-        $kelas = kelas::all();
+        $kelas = Kelas::all();
         $ekstrakurikuler = ekstrakurikuler::all();
         return view('admin/siswa.create', compact('kelas', 'ekstrakurikuler'));
 
-        $kelas = Kelas::all(); // Mengambil semua data kelas
-        return view('admin.siswa.create', compact('kelas'));
 
     }
 
@@ -47,32 +42,19 @@ class SiswaController extends Controller
             'email' => 'required',
             'password' => 'required',
             'nama_siswa' => 'required',
-
             'jenis_kelamin' => 'required',
             'id_kelas' => 'required',
             'id_ekstrakurikuler' => 'required',
             'foto'     => 'mimes:jpeg,jpg,png|max:1024',
-
-            'id_kelas' => 'required', // Menggunakan id_kelas sebagai foreign key
-            'ekstrakurikuler' => 'required',
-            'foto' => 'mimes:jpeg,jpg,png|max:1024',
-
         ]);
-
         $siswa = [
-            'NIS' => $request->NIS,
-            'email' => $request->email,
+            'NIS'   => $request->NIS,
+            'email'   => $request->email,
             'password' => Hash::make($request->password),
-
             'nama_siswa'   => $request->nama_siswa,
             'jenis_kelamin'   => $request->jenis_kelamin,
             'id_kelas'   => $request->id_kelas,
             'id_ekstrakurikuler'   => $request->id_ekstrakurikuler,
-
-            'nama_siswa' => $request->nama_siswa,
-            'id_kelas' => $request->id_kelas, // Menyimpan id_kelas
-            'ekstrakurikuler' => $request->ekstrakurikuler,
-
         ];
 
         if ($request->hasFile('foto')) {
@@ -83,23 +65,18 @@ class SiswaController extends Controller
             $siswa['foto'] = $foto_nama;
         }
 
-
         // siswa::create($request->all());
         siswa::create($siswa);
 
         return redirect()->route('siswa.index')->with('success','siswa created successfully.');
-
-        Siswa::create($siswa);
-
-        return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil ditambahkan');
-
     }
 
-    public function edit($id_siswa)
+    public function edit($NIS)
     {
-        $siswa = Siswa::findOrFail($id_siswa);
+        $siswa = Siswa::findOrFail($NIS);
         $kelas = Kelas::all(); // Mengambil semua data kelas
-        return view('admin.siswa.edit', compact('siswa', 'kelas'));
+        $ekstrakurikuler = ekstrakurikuler::all(); // Mengambil semua data kelas
+        return view('admin.siswa.edit', compact('siswa', 'kelas', 'ekstrakurikuler'));
     }
 
 
@@ -114,7 +91,7 @@ class SiswaController extends Controller
     //     $ekstrakurikuler = ekstrakurikuler::all();
     //     return view('admin/siswa.edit', compact('siswa', 'kelas','ekstrakurikuler'));
     // }
-    public function update(Request $request, string $id_siswa)
+   public function update(Request $request, string $NIS)
 {
     $request->validate([
         'NIS' => 'required',
@@ -127,7 +104,7 @@ class SiswaController extends Controller
     ]);
 
     // Ambil objek model siswa berdasarkan id_siswa
-    $siswa = siswa::findOrFail($id_siswa);
+    $siswa = siswa::findOrFail($NIS);
 
     // Data yang akan diperbarui
     $data = [
@@ -142,31 +119,41 @@ class SiswaController extends Controller
 
     // Periksa jika ada file foto yang diunggah
     if ($request->hasFile('foto')) {
+        $request->validate([
+            'foto' => 'mimes:jpeg,jpg,png|max:1024',
+        ]);
+        $foto_file = $request->file('foto');
+        $foto_nama = $foto_file->hashName();
+        $foto_file->move(public_path('foto_siswa'), $foto_nama);
 
-    
+        // Hapus foto lama jika ada
+        File::delete(public_path('foto_siswa') . '/' . $siswa->foto);
 
+        // Tambahkan nama file foto baru ke data yang akan diperbarui
+        $data['foto'] = $foto_nama;
+    }
 
     // Perbarui data siswa
     $siswa->update($data);
 
     return redirect()->route('siswa.index')->with('success', 'siswa updated successfully');
 
-}}
+}
 
 
 
     // public function destroy(siswa $siswa)
     // {
     //     // $siswa->delete();
-    //     siswa::where('id_siswa', $siswa)->delete();
+    //     siswa::where('NIS', $siswa)->delete();
     //     \Log::info('Deleting Siswa:', ['siswa' => $siswa]);
     //     return redirect()->route('siswa.index')->with('success','siswa deleted successfully');
     // }
 
 
-    public function destroy($id_siswa)
+    public function destroy($NIS)
     {
-        $siswa = Siswa::findOrFail($id_siswa);
+        $siswa = Siswa::findOrFail($NIS);
 
         File::delete(public_path('foto_siswa') . '/' . $siswa->foto);
 
@@ -176,7 +163,7 @@ class SiswaController extends Controller
         //redirect to index
         return redirect()->route('siswa.index')->with('success', 'Data Berhasil Dihapus!');
 
-        return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil dihapus');
+        // return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil dihapus');
 
     }
 }

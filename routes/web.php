@@ -11,11 +11,13 @@ use App\Http\Controllers\admin\GuruController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\KelasController;
 use App\Http\Controllers\admin\SiswaController;
-use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\absensi\AbsensiController;
 use App\Http\Controllers\admin\EkstrakurikulerController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\admin\jadwal\JadwalController;
 use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
+use App\Http\Controllers\siswa\jadwal\JadwalSiswaController;
 
 use App\Http\Controllers\admin\absensi\AbsensiSiswaController;
 use App\Http\Controllers\SiswaAuthController;
@@ -56,14 +58,13 @@ Route::get('/dashboard', [DashboardController::class, 'index'], function() {
 // Route::post('/siswa/login', [SiswaAuthController::class, 'login']);
 
 
-Route::resource('/dashboard/siswa', App\Http\Controllers\siswa\DashboardController::class)
-    ->only(['index'])
-    ->middleware(['siswa']);
+// Route::resource('/dashboard/siswa', App\Http\Controllers\siswa\DashboardController::class)
+//     ->only(['index'])
+//     ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
-
 
 // Route::post('/login', [CustomAuthenticatedSessionController::class, 'store'])->name('login');
 Route::get('/logout', [CustomAuthenticatedSessionController::class, 'destroy'])->name('logout');
@@ -94,6 +95,7 @@ Auth::routes();
 // Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::class);
 
 Route::middleware(['admin'])->group(function () {
+    Route::resource('jadwal-admin', JadwalController::class);
     Route::resource('daftar-guru', AdminController::class);
 });
 
@@ -105,6 +107,7 @@ Route::middleware(['guru'])->group(function () {
 });
 Route::middleware(['guru'])->group(function () {
     Route::resource('absensi', AbsensiController::class);
+    Route::get('jadwal-guru', [JadwalController::class, 'show'])->name('jadwal-guru.show');
 });
 
 Route::resource('absensi-guru', App\Http\Controllers\admin\absensi\AbsensiGuruController::class);
@@ -120,9 +123,12 @@ Route::get('/tambahDataSiswa', function(){
     return view('siswa.tambahsiswa');
 }
 );
-// Route::get('/admin/siswa.index', SiswaController::class);
+
+
+Route::resource('jadwal-siswa', JadwalSiswaController::class);
+// Route::get('/tambahJadwal', [JadwalController::class, 'create']);
 // Route::resource('siswa', SiswaController::class)->parameters(['siswa' => 'NIS']);
-// Route::resource('siswa', SiswaController::class);
+Route::resource('siswa', SiswaController::class);
 Route::resource('ekstrakurikuler', EkstrakurikulerController::class);
 
 

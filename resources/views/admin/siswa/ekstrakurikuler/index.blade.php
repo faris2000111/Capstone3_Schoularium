@@ -18,7 +18,7 @@
                     <tr>
                         <th>{{$loop->iteration}}</th>
                         <td>{{$row->nama_ekstrakurikuler}}</td>
-                        <td>{{$row->guru->nama}}</td>
+                        <td>{{$row->admin->nama}}</td>
                         <td>
 
                           <form action="{{ route('ekstrakurikuler.destroy', $row->id_ekstrakurikuler) }}" method="POST" onsubmit = "return confirm('apakah anda yakin..?')">

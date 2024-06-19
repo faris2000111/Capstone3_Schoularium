@@ -28,9 +28,15 @@
         </a>
       </li>
       <li>
-        <a href="forms-editors.html">
-          <i class="bi bi-circle"></i><span>Jadwal Guru</span>
+        @if(auth()->user()->jabatan === 'admin')
+        <a href="{{ route('jadwal-admin.index') }}" class="nav-link {{ request()->routeIs('jadwal-admin.*') ? '' : 'collapsed' }}">
+            <i class="bi bi-circle"></i><span>Jadwal Guru</span>
         </a>
+        @elseif(auth()->user()->jabatan === 'guru')
+        <a href="{{ route('jadwal-guru.show') }}" class="nav-link {{ request()->routeIs('jadwal-guru.*') ? '' : 'collapsed' }}">
+            <i class="bi bi-circle"></i><span>Jadwal Guru</span>
+        </a>
+        @endif
       </li>
       <li>
         <a href="{{ route('mata_pelajaran.index') }}" class="nav-link {{ request()->routeIs('MataPelajaran.*') ? '' : 'collapsed' }}">
@@ -83,15 +89,6 @@
       </li> --}}
     </ul>
   </li><!-- End Forms Nav -->
-
-  <li class="nav-heading">Pages</li>
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="users-profile.html">
-      <i class="bi bi-person"></i>
-      <span>Profile</span>
-    </a>
-  </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('logout') }}" onclick="return confirm('Apakah anda yakin ingin keluar?')">
