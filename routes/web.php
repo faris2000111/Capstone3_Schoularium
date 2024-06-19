@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\admin\jadwal\JadwalController;
 use App\Http\Controllers\Auth\CustomAuthenticatedSessionController;
 use App\Http\Controllers\siswa\jadwal\JadwalSiswaController;
-use App\Http\Controllers\siswa\DashboardController;
+
 use App\Http\Controllers\admin\absensi\AbsensiSiswaController;
 use App\Http\Controllers\SiswaAuthController;
 
