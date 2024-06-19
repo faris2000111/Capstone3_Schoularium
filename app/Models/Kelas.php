@@ -10,9 +10,24 @@ class Kelas extends Model
     use HasFactory;
 
     protected $table = 'kelas';
-    protected $primaryKey = 'id_kelas';
-    public $incrementing = true;
-    protected $keyType = 'int';
+     protected $primaryKey = 'id_kelas';
+    protected $fillable = [
+        'nama_kelas',
+        'id_admin',
+    ];
 
-    // Tambahkan relasi atau fillable jika diperlukan
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class, 'id_kelas', 'id_kelas');
+    }
+
+    public function absensi()
+    {
+        return $this->hasMany(AbsensiSiswa::class, 'id_kelas', 'id_kelas');
+    }
+
+    public function mataPelajaran()
+    {
+        return $this->hasMany(MataPelajaran::class, 'id_kelas', 'id_kelas');
+    }
 }
