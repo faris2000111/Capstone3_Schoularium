@@ -32,8 +32,6 @@ class SiswaController extends Controller
         $ekstrakurikuler = ekstrakurikuler::all();
         return view('admin/siswa.create', compact('kelas', 'ekstrakurikuler'));
 
-        $kelas = Kelas::all(); // Mengambil semua data kelas
-        return view('admin.siswa.create', compact('kelas'));
 
     }
 
