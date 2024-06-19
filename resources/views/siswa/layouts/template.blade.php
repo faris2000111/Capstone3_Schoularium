@@ -45,11 +45,11 @@
 <body>
 
   <!-- ======= Header ======= -->
-@include('admin/layouts.header')
+@include('siswa/layouts.header')
  <!-- End Header -->
 
  <!-- ======= Sidebar ======= -->
-@include('admin/layouts.sidebar')
+@include('siswa/layouts.sidebar')
  <!-- End Sidebar-->
 
 
@@ -61,7 +61,7 @@
 @yield('scripts')
     
  <!-- ======= Footer ======= -->
- @include('admin/layouts.footer')
+ @include('siswa/layouts.footer')
  <!-- End Footer -->
  
 
