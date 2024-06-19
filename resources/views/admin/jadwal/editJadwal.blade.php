@@ -43,7 +43,7 @@
                                 <label for="nama-guru" class="form-label">Nama Guru</label>
                                 <select name="nama_guru" class="form-select" id="nama-guru" required>
                                     @foreach($admins as $admin)
-                                        <option value="{{ $admin->id_admin }}" {{ $jadwal->id_admin == $admin->id_admin ? 'selected' : '' }}>{{ $admin->nama }}</option>
+                                        <option value="{{ $admin->id }}" {{ $jadwal->id_admin == $admin->id ? 'selected' : '' }}>{{ $admin->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
