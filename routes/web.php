@@ -50,17 +50,17 @@ use App\Http\Controllers\MataPelajaranController;
 Route::get('/dashboard', [DashboardController::class, 'index'], function() {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard.index');
-Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::class)
-    ->only(['index'])
-    ->middleware(['auth', 'verified']);
+// Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::class)
+//     ->only(['index'])
+//     ->middleware(['auth', 'verified']);
 
 // Route::get('/siswa/login', [SiswaAuthController::class, 'showLoginForm'])->name('siswa.login');
 // Route::post('/siswa/login', [SiswaAuthController::class, 'login']);
 
 
-Route::resource('/dashboard/siswa', App\Http\Controllers\siswa\DashboardController::class)
-    ->only(['index'])
-    ->middleware(['auth', 'verified']);
+// Route::resource('/dashboard/siswa', App\Http\Controllers\siswa\DashboardController::class)
+//     ->only(['index'])
+//     ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {
     return redirect()->route('login');
