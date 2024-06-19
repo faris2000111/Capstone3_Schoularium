@@ -14,7 +14,7 @@ class DashboardController extends Controller
             $usertype = Auth()->user()->jabatan;
 
             if ($usertype == 'siswa') {
-                return view('siswa.dashboard');
+                return redirect()->intended('/dashboard/siswa');
             } else if ($usertype == 'admin') {
                 return view('admin.dashboard');
             }
