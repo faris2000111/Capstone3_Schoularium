@@ -60,7 +60,7 @@ Route::resource('dashboard', App\Http\Controllers\admin\DashboardController::cla
 
 Route::resource('/dashboard/siswa', App\Http\Controllers\siswa\DashboardController::class)
     ->only(['index'])
-    ->middleware(['siswa']);
+    ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {
     return redirect()->route('login');
