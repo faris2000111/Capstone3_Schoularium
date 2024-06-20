@@ -84,3 +84,6 @@
   </main><!-- End #main -->
 
 @endsection
+
+@section('scripts')
+@endsection
